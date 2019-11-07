@@ -69,3 +69,8 @@ if [ ${correctGoVersion} -eq 0 ]; then
   sleep 6
   echo ""
 fi
+
+
+echo "***"
+echo "Installed $(go version)"
+echo "***"
