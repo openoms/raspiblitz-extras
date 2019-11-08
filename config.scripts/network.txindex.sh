@@ -2,7 +2,7 @@
 
 # command info
 if [ $# -eq 0 ] || [ "$1" = "-h" ] || [ "$1" = "-help" ]; then
- echo "small config script to switch txindex on or off"
+ echo "config script to switch txindex on or off"
  echo "bitcoin.txindex.sh [on|off]"
  exit 1
 fi
@@ -16,12 +16,17 @@ fi
 
 # switch on
 if [ "$1" = "1" ] || [ "$1" = "on" ]; then
-  sudo sed -i "s/^txindex=.*/txindex=1/g" /mnt/hdd/bitcoin/bitcoin.conf
-  echo "switching txindex=1 and restarting bitcoind"
-  sudo systemctl restart bitcoind
-  echo "The indexing takes ~7h on an RPi4 with SSD"
-  echo "monitor with: sudo tail -n 20 -f /mnt/hdd/bitcoin/debug.log"
-  exit 0
+  if [ "${#txindex}" -eq 0 ]; then
+    sudo sed -i "s/^txindex=.*/txindex=1/g" /mnt/hdd/bitcoin/bitcoin.conf
+    echo "switching txindex=1 and restarting bitcoind"
+    sudo systemctl restart bitcoind
+    echo "The indexing takes ~7h on an RPi4 with SSD"
+    echo "monitor with: sudo tail -n 20 -f /mnt/hdd/bitcoin/debug.log"
+    exit 0
+  else
+    echo "txindex is already active"
+    exit 0
+  fi
 fi
 
 # switch off
@@ -31,5 +36,5 @@ if [ "$1" = "0" ] || [ "$1" = "off" ]; then
   exit 0
 fi
 
-echo "FAIL - Unknown Paramter $1"
+echo "FAIL - Unknown Parameter $1"
 exit 1

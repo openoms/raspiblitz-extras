@@ -38,8 +38,8 @@ exit 1
 fi
 
 # add default value to raspi config if needed
-if [ ${#BTC-RPC-explorer} -eq 0 ]; then
-  echo "BTC-RPC-explorer=off" >> /mnt/hdd/raspiblitz.conf
+if [ ${#BTCRPCexplorer} -eq 0 ]; then
+  echo "BTCRPCexplorer=off" >> /mnt/hdd/raspiblitz.conf
 fi
 
 # stop services
@@ -88,7 +88,7 @@ EOF
 
     # install service
     echo "*** Install btc-rpc-explorer systemd ***"
-    sudo cat > /etc/systemd/system/btc-rpc-explorer.service <<EOF
+    cat > /home/admin/btc-rpc-explorer.service <<EOF
 # systemd unit for BTC RPC Explorer
 
 [Unit]
@@ -109,6 +109,8 @@ StandardError=journal
 WantedBy=multi-user.target
 EOF
 
+sudo mv /home/admin/btc-rpc-explorer.service /etc/systemd/system/btc-rpc-explorer.service 
+
     sudo systemctl enable btc-rpc-explorer
     sudo systemctl start btc-rpc-explorer
     echo "OK - BTC-RPC-explorer is now ACTIVE"
@@ -117,10 +119,12 @@ EOF
     echo "BTC-RPC-explorer already installed."
   fi
   # setting value in raspi blitz config
-  sudo sed -i "s/^BTC-RPC-explorer=.*/BTC-RPC-explorer=on/g" /mnt/hdd/raspiblitz.conf
+  sudo sed -i "s/^BTCRPCexplorer=.*/BTCRPCexplorer=on/g" /mnt/hdd/raspiblitz.conf
   
   echo "needs to finish creating txindex to be functional"
   echo "monitor with: sudo tail -n 20 -f /mnt/hdd/bitcoin/debug.log"
+
+
   exit 0
 fi
 
@@ -129,15 +133,14 @@ fi
 if [ "$1" = "0" ] || [ "$1" = "off" ]; then
 
   # setting value in raspi blitz config
-  sudo sed -i "s/^BTC-RPC-explorer=.*/BTC-RPC-explorer=off/g" /mnt/hdd/raspiblitz.conf
+  sudo sed -i "s/^BTCRPCexplorer=.*/BTCRPCexplorer=off/g" /mnt/hdd/raspiblitz.conf
 
-  isInstalled=$(sudo ls /etc/systemd/system/btc-rpc-explorer.service 2>/dev/null | grep -c 'RTL.service')
+  isInstalled=$(sudo ls /etc/systemd/system/btc-rpc-explorer.service 2>/dev/null | grep -c 'btc-rpc-explorer.service')
   if [ ${isInstalled} -eq 1 ]; then
     echo "*** REMOVING BTC-RPC-explorer ***"
     sudo systemctl stop btc-rpc-explorer
     sudo systemctl disable btc-rpc-explorer
     sudo rm /etc/systemd/system/btc-rpc-explorer.service
-    sudo rm /home/bitcoin/.config/btc-rpc-explorer.env
     sudo rm -r /usr/local/lib/nodejs/node-$(node -v)-$DISTRO/bin/btc-rpc-explorer
     echo "OK BTC-RPC-explorer removed."
   else 
