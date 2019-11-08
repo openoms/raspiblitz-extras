@@ -1,30 +1,45 @@
 # RaspiBlitz Extras
 
+WIP - help with testing is much appreciated.  
+If a RaspiBlitz setup breaks restoring to a clean SDcard image is the easiest solution.
+
 ## Prepare
 ```bash
 git clone https://github.com/openoms/raspiblitz-extras.git
 cd raspiblitz-extras/
 sudo chmod -R +x *
-cd config.scripts/
+cp -r * /home/admin/
 ```
 ---
-### Loop service
-
+### [BTC-RPC-Explorer](https://github.com/janoside/btc-rpc-explorer)
+https://github.com/rootzoll/raspiblitz/issues/760
 * Install:  
-`./loop_service.sh `
+`$ ./config.scripts/bonus.btc-rpc-explorer.sh on`
 
-* Usage:
+* Open in browser to connect:  
+`http://RASSPIBLITZ_IP:3002`
 
-`loopd` or `loopd &` to keep working in the same window
+### [lndmanage](https://github.com/bitromortac/lndmanage)
+* Install:  
+`$ ./config.scripts/bonus.lndmanage.sh`
 
-`loop out --channel CHANNEL_ID --amt MAX_2M_SATS_VALUE`  
+* Usage (interactive mode):  
+`$ source venv/bin/activate`  
+`(venv) $ lndmanage `
 
-Run `loop monitor` to monitor progress.
+### [RTL update to v0.5.4](https://github.com/Ride-The-Lightning/RTL/releases)
+* Install:  
+`$ ./config.scripts/update.rtl.sh on`
 
-To open a channel to the loop server (min 0.08 BTC):  
-```bash
-lncli connect 021c97a90a411ff2b10dc2a8e32de2f29d2fa49d41bfbb52bd416e460db0747d0d@18.224.56.146:9735`
+* Open in browser to connect:  
+`http://RASSPIBLITZ_IP:3000`
 
-lncli openchannel 021c97a90a411ff2b10dc2a8e32de2f29d2fa49d41bfbb52bd416e460db0747d0d MIN_8M_SATS_VALUE
-```
----
+### [Loop service](https://github.com/lightninglabs/loop)  
+https://github.com/rootzoll/raspiblitz/issues/454
+* Install:  
+`$ ./config.scripts/bonus.loop.sh`
+
+* Usage:  
+`$ loopd` or `$ loopd &` to keep working in the same window  
+`$ loop out --channel CHANNEL_ID --amt MAX_2M_SATS_VALUE`  
+Run `$ loop monitor` to monitor progress.
