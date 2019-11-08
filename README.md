@@ -9,6 +9,7 @@ git clone https://github.com/openoms/raspiblitz-extras.git
 cd raspiblitz-extras/
 sudo chmod -R +x *
 cp -r * /home/admin/
+cd
 ```
 ---
 ### [BTC-RPC-Explorer](https://github.com/janoside/btc-rpc-explorer)

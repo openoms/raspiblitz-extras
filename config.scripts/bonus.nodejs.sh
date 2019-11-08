@@ -91,6 +91,6 @@ fi
 
 # setting value in raspi blitz config
 sudo sed -i "s/^nodeJS=.*/nodeJS=on/g" /mnt/hdd/raspiblitz.conf
-echo "Installed nodeJS $nodeJSInstalled"
+echo "Installed nodeJS $(node -v)"
 exit 0
 
