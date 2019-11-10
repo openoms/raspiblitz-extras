@@ -7,6 +7,7 @@ If a RaspiBlitz setup breaks restoring to a clean SDcard image is the easiest so
 ```bash
 git clone https://github.com/openoms/raspiblitz-extras.git
 cd raspiblitz-extras/
+# use `git pull` if updating
 sudo chmod -R +x *
 cp -r * /home/admin/
 cd
@@ -29,11 +30,14 @@ https://github.com/rootzoll/raspiblitz/issues/760
 `(venv) $ lndmanage `
 
 ### [RTL update to v0.5.4](https://github.com/Ride-The-Lightning/RTL/releases)
-* Install:  
+* Remove previous version:  
+`$ ./config.scripts/update.rtl.sh off`
+
+* Install the latest:  
 `$ ./config.scripts/update.rtl.sh on`
 
 * Open in browser to connect:  
-`http://RASSPIBLITZ_IP:3000`
+`http://RASPIBLITZ_IP:3000`
 
 ### [Loop service](https://github.com/lightninglabs/loop)  
 https://github.com/rootzoll/raspiblitz/issues/454
