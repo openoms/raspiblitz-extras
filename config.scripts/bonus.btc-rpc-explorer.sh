@@ -60,7 +60,7 @@ if [ "$1" = "1" ] || [ "$1" = "on" ]; then
 
     npm install -g btc-rpc-explorer
 
-    # prepare .env file
+# prepare .env file
     echo "getting RPC credentials from the bitcoin.conf"
 
     RPC_USER=$(sudo cat /mnt/hdd/bitcoin/bitcoin.conf | grep rpcuser | cut -c 9-)
@@ -70,15 +70,31 @@ if [ "$1" = "1" ] || [ "$1" = "on" ]; then
     touch /home/admin/btc-rpc-explorer.env
     chmod 600 /home/admin/btc-rpc-explorer.env || exit 1 
     cat > /home/admin/btc-rpc-explorer.env <<EOF
+# Host/Port to bind to
+# Defaults: shown
 BTCEXP_HOST=0.0.0.0
+#BTCEXP_PORT=3002
+
+# Bitcoin RPC Credentials (URI -OR- HOST/PORT/USER/PASS)
+# Defaults:
+#   - [host/port]: 127.0.0.1:8332
+#   - [username/password]: none
+#   - cookie: '~/.bitcoin/.cookie'
+#   - timeout: 5000 (ms)
+BTCEXP_BITCOIND_URI=bitcoin://$RPC_USER:$PASSWORD_B@127.0.0.1:8332?timeout=10000
+#BTCEXP_BITCOIND_HOST=127.0.0.1
+#BTCEXP_BITCOIND_PORT=8332
 BTCEXP_BITCOIND_USER=$RPC_USER
 BTCEXP_BITCOIND_PASS=$PASSWORD_B
+#BTCEXP_BITCOIND_COOKIE=/path/to/bitcoind/.cookie
+BTCEXP_BITCOIND_RPC_TIMEOUT=5000
+
+# Password protection for site via basic auth (enter any username, only the password is checked)
+# Default: none
 BTCEXP_BASIC_AUTH_PASSWORD=$PASSWORD_B
-BTCEXP_ADDRESS_API=electrumx
-BTCEXP_ELECTRUMX_SERVERS=tcp://127.0.0.1:50001
 EOF
-    sudo mv /home/admin/btc-rpc-explorer.env /usr/local/lib/nodejs/node-$(node -v)-$DISTRO/lib/node_modules/btc-rpc-explorer/.env
-    sudo chown bitcoin:bitcoin /usr/local/lib/nodejs/node-$(node -v)-$DISTRO/lib/node_modules/btc-rpc-explorer/.env
+    sudo mv /home/admin/btc-rpc-explorer.env /home/bitcoin/.config/btc-rpc-explorer.env
+    sudo chown bitcoin:bitcoin /home/bitcoin/.config/btc-rpc-explorer.env
 
     # open firewall
     echo "*** Updating Firewall ***"
@@ -123,7 +139,6 @@ sudo mv /home/admin/btc-rpc-explorer.service /etc/systemd/system/btc-rpc-explore
   
   echo "needs to finish creating txindex to be functional"
   echo "monitor with: sudo tail -n 20 -f /mnt/hdd/bitcoin/debug.log"
-
 
   exit 0
 fi

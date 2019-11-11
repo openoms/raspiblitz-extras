@@ -12,14 +12,29 @@ sudo chmod -R +x *
 cp -r * /home/admin/
 cd
 ```
+## Update the scripts (if downloaded before)
+```bash
+cd raspiblitz-extras/
+git pull
+sudo chmod -R +x *
+cp -rf * /home/admin/
+cd
+```
+*  install / reinstall the updated services.
+
 ---
 ### [BTC-RPC-Explorer](https://github.com/janoside/btc-rpc-explorer)
 https://github.com/rootzoll/raspiblitz/issues/760
 * Install:  
 `$ ./config.scripts/bonus.btc-rpc-explorer.sh on`
 
-* Open in browser to connect:  
-`http://RASSPIBLITZ_IP:3002`
+* Once txindex created open in browser to connect:  
+`http://RASPIBLITZ_IP:3002`
+
+* For the RPC Browser and Terminal:
+    * username cane be anything (not checked)
+    * password is the `Password_B` of the RaspiBlitz
+
 
 ### [lndmanage](https://github.com/bitromortac/lndmanage)
 * Install:  
