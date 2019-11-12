@@ -95,10 +95,10 @@ BTCEXP_BASIC_AUTH_PASSWORD=$PASSWORD_B
 # If electrumx set, the BTCEXP_ELECTRUMX_SERVERS variable must also be
 # set.
 # Default: none
-BTCEXP_ADDRESS_API=electrumx
+# BTCEXP_ADDRESS_API=electrumx
 # Optional ElectrumX Servers. See BTCEXP_ADDRESS_API. This value is only
 # used if BTCEXP_ADDRESS_API=electrumx
-BTCEXP_ELECTRUMX_SERVERS=tcp://127.0.0.1:50001
+# BTCEXP_ELECTRUMX_SERVERS=tcp://127.0.0.1:50001
 EOF
     sudo mv /home/admin/btc-rpc-explorer.env /home/bitcoin/.config/btc-rpc-explorer.env
     sudo chown bitcoin:bitcoin /home/bitcoin/.config/btc-rpc-explorer.env
