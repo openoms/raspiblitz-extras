@@ -74,7 +74,6 @@ if [ "$1" = "1" ] || [ "$1" = "on" ]; then
 # Defaults: shown
 BTCEXP_HOST=0.0.0.0
 #BTCEXP_PORT=3002
-
 # Bitcoin RPC Credentials (URI -OR- HOST/PORT/USER/PASS)
 # Defaults:
 #   - [host/port]: 127.0.0.1:8332
@@ -88,10 +87,18 @@ BTCEXP_BITCOIND_USER=$RPC_USER
 BTCEXP_BITCOIND_PASS=$PASSWORD_B
 #BTCEXP_BITCOIND_COOKIE=/path/to/bitcoind/.cookie
 BTCEXP_BITCOIND_RPC_TIMEOUT=5000
-
 # Password protection for site via basic auth (enter any username, only the password is checked)
 # Default: none
 BTCEXP_BASIC_AUTH_PASSWORD=$PASSWORD_B
+# Select optional "address API" to display address tx lists and balances
+# Options: electrumx, blockchain.com, blockchair.com, blockcypher.com
+# If electrumx set, the BTCEXP_ELECTRUMX_SERVERS variable must also be
+# set.
+# Default: none
+BTCEXP_ADDRESS_API=electrumx
+# Optional ElectrumX Servers. See BTCEXP_ADDRESS_API. This value is only
+# used if BTCEXP_ADDRESS_API=electrumx
+BTCEXP_ELECTRUMX_SERVERS=tcp://127.0.0.1:50001
 EOF
     sudo mv /home/admin/btc-rpc-explorer.env /home/bitcoin/.config/btc-rpc-explorer.env
     sudo chown bitcoin:bitcoin /home/bitcoin/.config/btc-rpc-explorer.env
