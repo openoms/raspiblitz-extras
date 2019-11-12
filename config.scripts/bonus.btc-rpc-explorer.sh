@@ -60,7 +60,7 @@ if [ "$1" = "1" ] || [ "$1" = "on" ]; then
 
     npm install -g btc-rpc-explorer
 
-# prepare .env file
+    # prepare .env file
     echo "getting RPC credentials from the bitcoin.conf"
 
     RPC_USER=$(sudo cat /mnt/hdd/bitcoin/bitcoin.conf | grep rpcuser | cut -c 9-)
@@ -96,8 +96,6 @@ BTCEXP_BASIC_AUTH_PASSWORD=$PASSWORD_B
 # set.
 # Default: none
 # BTCEXP_ADDRESS_API=electrumx
-# Optional ElectrumX Servers. See BTCEXP_ADDRESS_API. This value is only
-# used if BTCEXP_ADDRESS_API=electrumx
 # BTCEXP_ELECTRUMX_SERVERS=tcp://127.0.0.1:50001
 EOF
     sudo mv /home/admin/btc-rpc-explorer.env /home/bitcoin/.config/btc-rpc-explorer.env
@@ -132,7 +130,7 @@ StandardError=journal
 WantedBy=multi-user.target
 EOF
 
-sudo mv /home/admin/btc-rpc-explorer.service /etc/systemd/system/btc-rpc-explorer.service 
+    sudo mv /home/admin/btc-rpc-explorer.service /etc/systemd/system/btc-rpc-explorer.service 
 
     sudo systemctl enable btc-rpc-explorer
     sudo systemctl start btc-rpc-explorer
@@ -141,6 +139,18 @@ sudo mv /home/admin/btc-rpc-explorer.service /etc/systemd/system/btc-rpc-explore
   else 
     echo "BTC-RPC-explorer already installed."
   fi
+
+  # Enable BTCEXP_ADDRESS_API if electrs is active
+  if [ $(sudo -u bitcoin lsof -i | grep -c 50001) -eq 1 ]; then
+    echo "electrs is active - switching support on"
+    sudo -u bitcoin sed -i '/BTCEXP_ADDRESS_API=electrumx/s/^#//g' /home/bitcoin/.config/btc-rpc-explorer.env
+    sudo -u bitcoin sed -i '/BTCEXP_ELECTRUMX_SERVERS=/s/^#//g' /home/bitcoin/.config/btc-rpc-explorer.env
+  else
+    echo "electrs is not active - switching support off"
+    sudo -u bitcoin sed -i '/BTCEXP_ADDRESS_API=electrumx/s/^/#/g' /home/bitcoin/.config/btc-rpc-explorer.env
+    sudo -u bitcoin sed -i '/BTCEXP_ELECTRUMX_SERVERS=/s/^/#/g' /home/bitcoin/.config/btc-rpc-explorer.env    
+  fi
+
   # setting value in raspi blitz config
   sudo sed -i "s/^BTCRPCexplorer=.*/BTCRPCexplorer=on/g" /mnt/hdd/raspiblitz.conf
   
