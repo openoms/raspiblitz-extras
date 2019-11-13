@@ -157,9 +157,42 @@ EOF
   echo "needs to finish creating txindex to be functional"
   echo "monitor with: sudo tail -n 20 -f /mnt/hdd/bitcoin/debug.log"
 
+  # Hidden Service for BTC-RPC-explorer if Tor is active
+  source /mnt/hdd/raspiblitz.conf
+  if [ "${runBehindTor}" = "on" ]; then
+    isBtcRpcExplorerTor=$(sudo cat /etc/tor/torrc 2>/dev/null | grep -c 'btc-rpc-explorer')
+    if [ ${isBtcRpcExplorerTor} -eq 0 ]; then
+      echo "
+# Hidden Service for BTC-RPC-explorer
+HiddenServiceDir /mnt/hdd/tor/btc-rpc-explorer
+HiddenServiceVersion 3
+HiddenServicePort 3002 127.0.0.1:3002
+      " | sudo tee -a /etc/tor/torrc
+
+      sudo systemctl restart tor
+      sleep 2
+    else
+      echo "The Hidden Service is already installed"
+    fi
+    TOR_ADDRESS=$(sudo cat /mnt/hdd/tor/btc-rpc-explorer/hostname)
+    if [ -z "$TOR_ADDRESS" ]; then
+      echo "Waiting for the Hidden Service"
+      sleep 10
+      TOR_ADDRESS=$(sudo cat /mnt/hdd/tor/btc-rpc-explorer/hostname)
+      if [ -z "$TOR_ADDRESS" ]; then
+        echo " FAIL - The Hidden Service address could not be found - Tor error?"
+        exit 1
+      fi
+    fi    
+    echo ""
+    echo "***"
+    echo "The Tor Hidden Service address for btc-rpc-explorer is:"
+    echo "$TOR_ADDRESS:3002"
+    echo "***"
+    echo "" 
+  fi
   exit 0
 fi
-
 
 # switch off
 if [ "$1" = "0" ] || [ "$1" = "off" ]; then
