@@ -35,6 +35,12 @@ https://github.com/rootzoll/raspiblitz/issues/760
     * username cane be anything (not checked)
     * password is the `Password_B` of the RaspiBlitz
 
+### [Electrum Rust Server](https://github.com/romanz/electrs)
+https://github.com/rootzoll/raspiblitz/issues/123
+* Install:  
+`$ ./config.scripts/bonus.electrs.sh on`
+
+* More info: https://github.com/openoms/bitcoin-tutorials/blob/master/electrs/README.md    
 
 ### [lndmanage](https://github.com/bitromortac/lndmanage)
 * Install:  
