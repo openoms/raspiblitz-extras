@@ -42,7 +42,7 @@ if [ ${#BTCRPCexplorer} -eq 0 ]; then
   echo "BTCRPCexplorer=off" >> /mnt/hdd/raspiblitz.conf
 fi
 
-# stop services
+# stop service
 echo "making sure services are not running"
 sudo systemctl stop btc-rpc-explorer 2>/dev/null
 
@@ -138,6 +138,9 @@ EOF
 
   else 
     echo "BTC-RPC-explorer already installed."
+    # start service
+    echo "start service"
+    sudo systemctl start btc-rpc-explorer 2>/dev/null
   fi
 
   # Enable BTCEXP_ADDRESS_API if electrs is active
