@@ -54,7 +54,7 @@ https://github.com/rootzoll/raspiblitz/issues/123
 * Remove previous version:  
 `$ ./config.scripts/update.rtl.sh off`
 
-* Install the latest:  
+* Install the latest and /or add the Hidden Service:  
 `$ ./config.scripts/update.rtl.sh on`
 
 * Open in browser to connect:  

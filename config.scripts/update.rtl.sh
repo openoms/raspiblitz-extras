@@ -95,7 +95,40 @@ if [ "$1" = "1" ] || [ "$1" = "on" ]; then
   # setting value in raspi blitz config
   sudo sed -i "s/^rtlWebinterface=.*/rtlWebinterface=on/g" /mnt/hdd/raspiblitz.conf
 
-  echo "needs reboot to activate new setting"
+  # Hidden Service for RTL if Tor is active
+  if [ "${runBehindTor}" = "on" ]; then
+    isRTLTor=$(sudo cat /etc/tor/torrc 2>/dev/null | grep -c 'RTL')
+    if [ ${isRTLTor} -eq 0 ]; then
+      echo "
+# Hidden Service for RTL
+HiddenServiceDir /mnt/hdd/tor/RTL
+HiddenServiceVersion 3
+HiddenServicePort 3000 127.0.0.1:3000
+      " | sudo tee -a /etc/tor/torrc
+  
+      sudo systemctl restart tor
+      sleep 2
+    else
+      echo "The Hidden Service is already installed"
+    fi
+  
+    TOR_ADDRESS=$(sudo cat /mnt/hdd/tor/RTL/hostname)
+    if [ -z "$TOR_ADDRESS" ]; then
+      echo "Waiting for the Hidden Service"
+      sleep 10
+      TOR_ADDRESS=$(sudo cat /mnt/hdd/tor/RTL/hostname)
+        if [ -z "$TOR_ADDRESS" ]; then
+          echo " FAIL - The Hidden Service address could not be found - Tor error?"
+          exit 1
+        fi
+    fi    
+    echo ""
+    echo "***"
+    echo "The Tor Hidden Service address for RTL is:"
+    echo "$TOR_ADDRESS:3000"
+    echo "***"
+    echo "" 
+  fi
   exit 0
 fi
 
