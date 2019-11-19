@@ -42,14 +42,6 @@ https://github.com/rootzoll/raspiblitz/issues/123
 
 * More info: https://github.com/openoms/bitcoin-tutorials/blob/master/electrs/README.md    
 
-### [lndmanage](https://github.com/bitromortac/lndmanage)
-* Install:  
-`$ ./config.scripts/bonus.lndmanage.sh`
-
-* Usage (interactive mode):  
-`$ source venv/bin/activate`  
-`(venv) $ lndmanage `
-
 ### [RTL update to v0.5.4](https://github.com/Ride-The-Lightning/RTL/releases)
 * Remove previous version:  
 `$ ./config.scripts/update.rtl.sh off`
@@ -59,6 +51,14 @@ https://github.com/rootzoll/raspiblitz/issues/123
 
 * Open in browser to connect:  
 `http://RASPIBLITZ_IP:3000`
+
+### [lndmanage](https://github.com/bitromortac/lndmanage)
+* Install:  
+`$ ./config.scripts/bonus.lndmanage.sh`
+
+* Usage (interactive mode):  
+`$ source venv/bin/activate`  
+`(venv) $ lndmanage `
 
 ### [Loop service](https://github.com/lightninglabs/loop)  
 https://github.com/rootzoll/raspiblitz/issues/454
