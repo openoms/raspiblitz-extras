@@ -3,6 +3,9 @@
 WIP - help with testing is much appreciated.  
 If a RaspiBlitz setup breaks restoring to a clean SDcard image is the easiest solution.
 
+login to your RaspiBlitz with the user `admin`:  
+`ssh admin@RASPIBLITZ_IP`
+
 ## Prepare
 ```bash
 git clone https://github.com/openoms/raspiblitz-extras.git
