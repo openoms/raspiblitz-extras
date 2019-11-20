@@ -54,6 +54,7 @@ if [ "$1" = "1" ] || [ "$1" = "on" ]; then
 
     # install
     echo "*** Run: npm install ***"
+    export NG_CLI_ANALYTICS=false
     npm install
     cd ..
     # check if node_modles exists now
@@ -86,11 +87,15 @@ if [ "$1" = "1" ] || [ "$1" = "on" ]; then
     sudo cp /home/admin/assets/RTL.service /etc/systemd/system/RTL.service
     sudo sed -i "s|chain/bitcoin/mainnet|chain/${network}/${chain}net|" /etc/systemd/system/RTL.service
     sudo systemctl enable RTL
-    echo "OK - RTL is now ACTIVE"
+    echo "OK - the RTL service is now enabled"
 
   else 
     echo "RTL already installed."
   fi
+  
+  # start service
+  echo "Starting service"
+  sudo systemctl start RTL 2>/dev/null
 
   # setting value in raspi blitz config
   sudo sed -i "s/^rtlWebinterface=.*/rtlWebinterface=on/g" /mnt/hdd/raspiblitz.conf
@@ -103,7 +108,7 @@ if [ "$1" = "1" ] || [ "$1" = "on" ]; then
 # Hidden Service for RTL
 HiddenServiceDir /mnt/hdd/tor/RTL
 HiddenServiceVersion 3
-HiddenServicePort 3000 127.0.0.1:3000
+HiddenServicePort 80 127.0.0.1:3000
       " | sudo tee -a /etc/tor/torrc
   
       sudo systemctl restart tor
@@ -125,7 +130,7 @@ HiddenServicePort 3000 127.0.0.1:3000
     echo ""
     echo "***"
     echo "The Tor Hidden Service address for RTL is:"
-    echo "$TOR_ADDRESS:3000"
+    echo "$TOR_ADDRESS"
     echo "***"
     echo "" 
   fi

@@ -6,13 +6,13 @@ If a RaspiBlitz setup breaks restoring to a clean SDcard image is the easiest so
 login to your RaspiBlitz with the user `admin`:  
 `ssh admin@RASPIBLITZ_IP`
 
-## Prepare
+## Prepare the extras
 ```bash
 git clone https://github.com/openoms/raspiblitz-extras.git
 cd raspiblitz-extras/
 # use `git pull` if updating
 sudo chmod -R +x *
-cp -r * /home/admin/
+cp -rf * /home/admin/
 cd
 ```
 ## Update the scripts (if downloaded before)
@@ -28,15 +28,19 @@ cd
 ---
 ### [BTC-RPC-Explorer](https://github.com/janoside/btc-rpc-explorer)
 https://github.com/rootzoll/raspiblitz/issues/760
-* Install:  
-`$ ./config.scripts/bonus.btc-rpc-explorer.sh on`
+* Use the `SERVICE` menu to install / uninstall.
 
-* Once txindex created open in browser to connect:  
+* Once the txindex is created open in browser to connect:  
 `http://RASPIBLITZ_IP:3002`
 
 * For the RPC Browser and Terminal:
     * username cane be anything (not checked)
     * password is the `Password_B` of the RaspiBlitz
+
+### [RTL update to v0.5.4](https://github.com/Ride-The-Lightning/RTL/releases)
+* Use the `SERVICE` menu to uninstall the old version (if used) and install the updated version.
+* Open in the browser to connect:  
+`http://RASPIBLITZ_IP:3000`
 
 ### [Electrum Rust Server](https://github.com/romanz/electrs)
 https://github.com/rootzoll/raspiblitz/issues/123
@@ -45,15 +49,6 @@ https://github.com/rootzoll/raspiblitz/issues/123
 
 * More info: https://github.com/openoms/bitcoin-tutorials/blob/master/electrs/README.md    
 
-### [RTL update to v0.5.4](https://github.com/Ride-The-Lightning/RTL/releases)
-* Remove previous version:  
-`$ ./config.scripts/update.rtl.sh off`
-
-* Install the latest and /or add the Hidden Service:  
-`$ ./config.scripts/update.rtl.sh on`
-
-* Open in browser to connect:  
-`http://RASPIBLITZ_IP:3000`
 
 ### [lndmanage](https://github.com/bitromortac/lndmanage)
 * Install:  
@@ -72,3 +67,9 @@ https://github.com/rootzoll/raspiblitz/issues/454
 `$ loopd` or `$ loopd &` to keep working in the same window  
 `$ loop out --channel CHANNEL_ID --amt MAX_2M_SATS_VALUE`  
 Run `$ loop monitor` to monitor progress.
+
+### Install the Fan-Shim software
+* Install:  
+`$ ./config.scripts/blitz.fanshim.sh`
+
+It is set to automatically stop between 55 and 70 degrees.
