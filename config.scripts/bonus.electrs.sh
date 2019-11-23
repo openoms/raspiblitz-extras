@@ -5,7 +5,7 @@
 # command info
 if [ $# -eq 0 ] || [ "$1" = "-h" ] || [ "$1" = "-help" ]; then
  echo "small config script to switch the Electrum Rust Server on or off"
- echo "bonus.btc-rcp-explorer.sh [on|off]"
+ echo "bonus.electrs.sh [on|off]"
  exit 1
 fi
 
@@ -284,7 +284,7 @@ WantedBy=multi-user.target
     echo ""
 
   else 
-    echo "ElectRS already installed."
+    echo "ElectRS is already installed."
     # start service
     echo "start service"
     sudo systemctl start electrs 2>/dev/null
@@ -292,38 +292,39 @@ WantedBy=multi-user.target
 
   # Hidden Service for electrs if Tor active
   if [ "${runBehindTor}" = "on" ]; then
-      isElectrsTor=$(sudo cat /etc/tor/torrc 2>/dev/null | grep -c 'electrs')
-      if [ ${isElectrsTor} -eq 0 ]; then
+    isElectrsTor=$(sudo cat /etc/tor/torrc 2>/dev/null | grep -c 'electrs')
+    if [ ${isElectrsTor} -eq 0 ]; then
       echo "
 # Hidden Service for Electrum Server
 HiddenServiceDir /mnt/hdd/tor/electrs
 HiddenServiceVersion 3
 HiddenServicePort 50002 127.0.0.1:50002
-      " | sudo tee -a /etc/tor/torrc
+" | sudo tee -a /etc/tor/torrc
 
       sudo systemctl restart tor
       sleep 2
-      else
+    else
       echo "The Hidden Service is already installed"
-      fi
-      TOR_ADDRESS=$(sudo cat /mnt/hdd/tor/electrs/hostname)
-      if [ -z "$TOR_ADDRESS" ]; then
+    fi
+    
+    TOR_ADDRESS=$(sudo cat /mnt/hdd/tor/electrs/hostname)
+    if [ -z "$TOR_ADDRESS" ]; then
       echo "Waiting for the Hidden Service"
       sleep 10
       TOR_ADDRESS=$(sudo cat /mnt/hdd/tor/electrs/hostname)
-          if [ -z "$TOR_ADDRESS" ]; then
-          echo " FAIL - The Hidden Service address could not be found - Tor error?"
-          exit 1
-          fi
-      fi    
-      echo ""
-      echo "***"
-      echo "The Tor Hidden Service address for electrs is:"
-      echo "$TOR_ADDRESS"
-      echo "Electrum wallet: to connect through Tor open the Tor Browser and start with the options:" 
-      echo "\`electrum --oneserver --server=$TOR_ADDRESS:50002:s --proxy socks5:127.0.0.1:9150\`"
-      echo "***"
-      echo "" 
+      if [ -z "$TOR_ADDRESS" ]; then
+        echo " FAIL - The Hidden Service address could not be found - Tor error?"
+        exit 1
+      fi
+    fi    
+    echo ""
+    echo "***"
+    echo "The Tor Hidden Service address for electrs is:"
+    echo "$TOR_ADDRESS"
+    echo "Electrum wallet: to connect through Tor open the Tor Browser and start with the options:" 
+    echo "\`electrum --oneserver --server=$TOR_ADDRESS:50002:s --proxy socks5:127.0.0.1:9150\`"
+    echo "***"
+    echo "" 
   fi
 
   ## Enable BTCEXP_ADDRESS_API if BTC-RPC-Explorer is active
@@ -373,7 +374,7 @@ if [ "$1" = "0" ] || [ "$1" = "off" ]; then
       sudo -u bitcoin sed -i '/BTCEXP_ELECTRUMX_SERVERS=/s/^/#/g' /home/bitcoin/.config/btc-rpc-explorer.env    
     fi
   else 
-    echo "ELectRS is not installed."
+    echo "ElectRS is not installed."
   fi
   exit 0
 fi
