@@ -394,22 +394,6 @@ else
   echo "LCD Rotate Setting unchanged."
 fi
 
-if [ ${anychange} -eq 0 ]; then
-     dialog --msgbox "NOTHING CHANGED!\nUse Spacebar to check/uncheck services." 8 58
-     exit 0
-fi
-
-if [ ${needsReboot} -eq 1 ]; then
-   sleep 2
-   dialog --pause "OK. System will reboot to activate changes." 8 58 8
-   clear
-   echo "rebooting .. (please wait)"
-   # stop bitcoind
-   sudo -u bitcoin ${network}-cli stop
-   sleep 4
-   sudo shutdown -r now
-fi
-
 # BTCPayServer process choice
 choice="off"; check=$(echo "${CHOICES}" | grep -c "p")
 if [ ${check} -eq 1 ]; then choice="on"; fi
@@ -446,4 +430,20 @@ if [ "${BTCPayServer}" != "${choice}" ]; then
   needsReboot=0
 else
   echo "BTCPayServer setting not changed."
+fi
+
+if [ ${anychange} -eq 0 ]; then
+     dialog --msgbox "NOTHING CHANGED!\nUse Spacebar to check/uncheck services." 8 58
+     exit 0
+fi
+
+if [ ${needsReboot} -eq 1 ]; then
+   sleep 2
+   dialog --pause "OK. System will reboot to activate changes." 8 58 8
+   clear
+   echo "rebooting .. (please wait)"
+   # stop bitcoind
+   sudo -u bitcoin ${network}-cli stop
+   sleep 4
+   sudo shutdown -r now
 fi
