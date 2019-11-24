@@ -411,7 +411,7 @@ if [ ${needsReboot} -eq 1 ]; then
 fi
 
 # BTCPayServer process choice
-choice="off"; check=$(echo "${CHOICES}" | grep -c "5")
+choice="off"; check=$(echo "${CHOICES}" | grep -c "p")
 if [ ${check} -eq 1 ]; then choice="on"; fi
 if [ "${BTCPayServer}" != "${choice}" ]; then
   echo "BTCPayServer setting changed .."
