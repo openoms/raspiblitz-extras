@@ -404,12 +404,12 @@ if [ "${BTCPayServer}" != "${choice}" ]; then
   errorOnInstall=$?
   if [ "${choice}" =  "on" ]; then
     if [ ${errorOnInstall} -eq 0 ]; then
-      localip=$(ip addr | grep 'state UP' -A2 | tail -n1 | awk '{print $2}' | cut -f1 -d'/')
+      source /home/btcpay/.btcpayserver/Main/settings.config
       if [ "${runBehindTor}" = "on" ]; then
         TOR_ADDRESS=$(sudo cat /mnt/hdd/tor/btcpay/hostname)
         l1="Open the following URL in your local web browser"
         l2="and register your admin account: "
-        l3="---> http://${localip}:3000"
+        l3="---> ${externalurl}"
         l4=""
         l5="The Hidden Service address to be used in the Tor Browser:"
         l6="${TOR_ADDRESS}"
@@ -417,7 +417,7 @@ if [ "${BTCPayServer}" != "${choice}" ]; then
       else
         l1="Open the following URL in your local web browser"
         l2="and register your admin account: "
-        l3="---> http://${localip}:3000"
+        l3="---> ${externalurl}"
         dialog --title 'OK' --msgbox "${l1}\n${l2}\n${l3}\n${l4}" 7 65
       fi
     else
