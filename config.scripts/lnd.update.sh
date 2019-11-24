@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # LND Update Script
 
 # Download and run this script on the RaspiBlitz:
@@ -110,7 +112,7 @@ if [ ${#installed} -eq 0 ]; then
   exit 1
 fi
 
-sudo systemctl restart lnd
+sudo systemctl start lnd
 
 echo ""
 echo "Installed ${installed}"
