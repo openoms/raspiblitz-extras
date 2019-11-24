@@ -290,6 +290,9 @@ WantedBy=multi-user.target
     sudo systemctl start electrs 2>/dev/null
   fi
 
+  # setting value in raspiblitz config
+  sudo sed -i "s/^ElectRS=.*/ElectRS=on/g" /mnt/hdd/raspiblitz.conf
+
   # Hidden Service for electrs if Tor active
   if [ "${runBehindTor}" = "on" ]; then
     isElectrsTor=$(sudo cat /etc/tor/torrc 2>/dev/null | grep -c 'electrs')
@@ -352,7 +355,7 @@ fi
 # switch off
 if [ "$1" = "0" ] || [ "$1" = "off" ]; then
 
-  # setting value in raspi blitz config
+  # setting value in raspiblitz config
   sudo sed -i "s/^ElectRS=.*/ElectRS=off/g" /mnt/hdd/raspiblitz.conf
 
   isInstalled=$(sudo ls /etc/systemd/system/electrs.service 2>/dev/null | grep -c 'electrs.service')
