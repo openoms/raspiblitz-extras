@@ -1,30 +1,19 @@
 # RaspiBlitz Extras
 
 WIP - help with testing is much appreciated.  
-If a RaspiBlitz setup breaks restoring to a clean SDcard image is the easiest solution.
 
-login to your RaspiBlitz with the user `admin`:  
-`ssh admin@RASPIBLITZ_IP`
+* login to your RaspiBlitz with the user `admin`:  
+    `ssh admin@RASPIBLITZ_IP`
 
 ## Prepare the extras
 
-* Run these in the RaspiBlitz terminal: 
+* Run these in the RaspiBlitz terminal to (re)download the scripts from this repo: 
 
     ```bash
+    cd
+    rm -rf raspiblitz-extras/
     git clone https://github.com/openoms/raspiblitz-extras.git
     cd raspiblitz-extras/
-    # use `git pull` if updating
-    sudo chmod -R +x *
-    cp -rf * /home/admin/
-    cd
-    ```
-
-## Update the scripts (if downloaded before)
-* Run these in the RaspiBlitz terminal: 
-
-    ```bash
-    cd raspiblitz-extras/
-    git pull
     sudo chmod -R +x *
     cp -rf * /home/admin/
     cd
@@ -32,7 +21,7 @@ login to your RaspiBlitz with the user `admin`:
 *  install / reinstall the updated services.
 ---
 
-### [BTCPay Server](https://github.com/janoside/btc-rpc-explorer)
+### BTCPay Server
 https://github.com/rootzoll/raspiblitz/issues/214
 
 * Use the `SERVICE` menu to install / uninstall.
