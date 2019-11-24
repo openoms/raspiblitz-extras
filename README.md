@@ -78,6 +78,19 @@ Run `$ loop monitor` to monitor progress.
 * It is set to automatically stop between 55 and 70 degrees.
 
 ### [LND update to v0.8.1-beta](/config.scripts/lnd.update.sh)
-* To update run in the RaspiBlitz terminal:  
+
+* If you have downloaded this repo run:  
    `$ ./config.scripts/lnd.update.sh`
+
+* To download and run with a single line:  
+`$ wget https://raw.githubusercontent.com/openoms/raspiblitz-extras/master/config.scripts/lnd.update.sh && bash lnd.update.sh`
+
 * note that the status screen will continue to display `LND v0.8.0-beta`
+
+### [Bitcoin Core update to v0.19.0.1](/config.scripts/bitcoin.update.sh)
+* If you have downloaded this repo run::  
+   `$ ./config.scripts/bitcoin.update.sh`
+* To download and run with a single line:  
+`$ wget https://raw.githubusercontent.com/openoms/raspiblitz-extras/master/config.scripts/bitcoin.update.sh && bash bitcoin.update.sh`
+
+* Not compatible with LND under v0.8.1, update LND first with the script above.
