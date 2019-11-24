@@ -7,34 +7,49 @@ login to your RaspiBlitz with the user `admin`:
 `ssh admin@RASPIBLITZ_IP`
 
 ## Prepare the extras
-```bash
-git clone https://github.com/openoms/raspiblitz-extras.git
-cd raspiblitz-extras/
-# use `git pull` if updating
-sudo chmod -R +x *
-cp -rf * /home/admin/
-cd
-```
-## Update the scripts (if downloaded before)
-```bash
-cd raspiblitz-extras/
-git pull
-sudo chmod -R +x *
-cp -rf * /home/admin/
-cd
-```
-*  install / reinstall the updated services.
 
+* Run these in the RaspiBlitz terminal: 
+
+    ```bash
+    git clone https://github.com/openoms/raspiblitz-extras.git
+    cd raspiblitz-extras/
+    # use `git pull` if updating
+    sudo chmod -R +x *
+    cp -rf * /home/admin/
+    cd
+    ```
+
+## Update the scripts (if downloaded before)
+* Run these in the RaspiBlitz terminal: 
+
+    ```bash
+    cd raspiblitz-extras/
+    git pull
+    sudo chmod -R +x *
+    cp -rf * /home/admin/
+    cd
+    ```
+*  install / reinstall the updated services.
 ---
+
+### [BTCPay Server](https://github.com/janoside/btc-rpc-explorer)
+https://github.com/rootzoll/raspiblitz/issues/214
+
+* Use the `SERVICE` menu to install / uninstall.
+
+* Read more and find basic help here:   
+https://github.com/openoms/bitcoin-tutorials/blob/master/BTCPayServer/README.md
+
+
 ### [BTC-RPC-Explorer](https://github.com/janoside/btc-rpc-explorer)
 https://github.com/rootzoll/raspiblitz/issues/760
 * Use the `SERVICE` menu to install / uninstall.
 
-* Once the txindex is created open in browser to connect:  
+* Once the txindex is created open in a browser to connect:  
 `http://RASPIBLITZ_IP:3002`
 
 * For the RPC Browser and Terminal:
-    * username cane be anything (not checked)
+    * username can be anything (not checked)
     * password is the `Password_B` of the RaspiBlitz
 
 ### [RTL update to v0.5.4](https://github.com/Ride-The-Lightning/RTL/releases)
@@ -48,7 +63,6 @@ https://github.com/rootzoll/raspiblitz/issues/123
 `$ ./config.scripts/bonus.electrs.sh on`
 
 * More info: https://github.com/openoms/bitcoin-tutorials/blob/master/electrs/README.md    
-
 
 ### [lndmanage](https://github.com/bitromortac/lndmanage)
 * Install:  
@@ -72,4 +86,4 @@ Run `$ loop monitor` to monitor progress.
 * Install:  
 `$ ./config.scripts/blitz.fanshim.sh`
 
-It is set to automatically stop between 55 and 70 degrees.
+* It is set to automatically stop between 55 and 70 degrees.
