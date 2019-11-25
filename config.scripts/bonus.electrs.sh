@@ -46,7 +46,7 @@ if [ "$1" = "1" ] || [ "$1" = "on" ]; then
     echo "Installing Rust"
     echo "***"
     echo ""
-    sudo -u electrs curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sudo -u electrs sh -s -- -y
+    sudo -u electrs curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sudo -u electrs sh -s -- --default-toolchain 1.39.0 -y
     # check Rust version with: $ sudo -u electrs /home/electrs/.cargo/bin/cargo --version
     # workaround to keep Rust at v1.37.0
     # sudo -u electrs /home/electrs/.cargo/bin/rustup install 1.37.0 --force
