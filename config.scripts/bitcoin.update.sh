@@ -39,6 +39,7 @@ echo ""
 echo "*** PREPARING BITCOIN ***"
 
 # prepare directories
+sudo rm -rf /home/admin/download 2>/dev/null
 sudo -u admin mkdir /home/admin/download 2>/dev/null
 cd /home/admin/download
 
