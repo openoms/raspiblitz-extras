@@ -23,12 +23,23 @@ else
  echo "OK running on $(uname -m) architecture."
 fi
 
+echo "Checking if LND is up to date"
+lndInstalled=$(lnd --version | grep v0.8.1 -c)
+if [ ${lndInstalled} -eq 1 ]; then
+  echo "ok, LND v0.8.1-beta is installed"
+else
+  echo""
+  echo "LND version lower than v0.8.1 is incompatible with bitcoin v0.19"
+  echo "Update LND first"
+  echo "Find the update script here: https://github.com/openoms/raspiblitz-extras#lnd-update-to-v081-beta"
+  exit 1
+fi
+
 echo ""
 echo "*** PREPARING BITCOIN ***"
 
 # prepare directories
-sudo rm -r /home/admin/download
-sudo -u admin mkdir /home/admin/download
+sudo -u admin mkdir /home/admin/download 2>/dev/null
 cd /home/admin/download
 
 # download, check and import signer key
@@ -125,12 +136,14 @@ if [ ${installed} -lt 1 ]; then
 fi
 
 sudo systemctl start bitcoind
+sleep 2
 
 echo ""
 echo "Installed $(sudo -u admin bitcoind --version | grep version)"
 echo ""
 
 sudo systemctl start lnd
+sleep 10
 
 echo "Unlock lnd with the Password C"
 lncli unlock

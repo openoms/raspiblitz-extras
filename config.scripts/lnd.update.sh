@@ -114,7 +114,9 @@ fi
 
 sudo systemctl start lnd
 
+sleep 5
 echo ""
 echo "Installed ${installed}"
 
+sleep 5
 lncli unlock
