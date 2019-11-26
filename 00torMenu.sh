@@ -1,13 +1,23 @@
 #!/bin/bash
 
-# correct Hidden Services for RTL and BTC-RPC-Explorer
-sudo sed -i "s/^HiddenServicePort 3000 127.0.0.1:3000/HiddenServicePort 80 127.0.0.1:3000/g" /etc/tor/torrc
-sudo sed -i "s/^HiddenServicePort 3002 127.0.0.1:3002/HiddenServicePort 80 127.0.0.1:3002/g" /etc/tor/torrc
-
 # get raspiblitz config
 echo "get raspiblitz config"
 source /home/admin/raspiblitz.info
 source /mnt/hdd/raspiblitz.conf
+
+# correct Hidden Services for RTL and BTC-RPC-Explorer
+sudo sed -i "s/^HiddenServicePort 3000 127.0.0.1:3000/HiddenServicePort 80 127.0.0.1:3000/g" /etc/tor/torrc
+sudo sed -i "s/^HiddenServicePort 3002 127.0.0.1:3002/HiddenServicePort 80 127.0.0.1:3002/g" /etc/tor/torrc
+
+# add value for ElectRS to raspi config if needed
+if [ ${#ElectRS} -eq 0 ]; then
+  echo "ElectRS=off" >> /mnt/hdd/raspiblitz.conf
+fi
+isInstalled=$(sudo ls /etc/systemd/system/electrs.service 2>/dev/null | grep -c 'electrs.service')
+if [ ${isInstalled} -eq 1 ]; then
+ # setting value in raspiblitz config
+  sudo sed -i "s/^ElectRS=.*/ElectRS=on/g" /mnt/hdd/raspiblitz.conf
+fi
 
 echo "run dialog ..."
 
@@ -25,7 +35,7 @@ plus=""
 
 # Basic Options
 OPTIONS+=(NYX "Monitor TOR")
-if [ "${RTL}" = "on" ]; then
+if [ "${rtlWebinterface}" = "on" ]; then
   OPTIONS+=(RTL "RTL web interface address")  
 fi
 if [ "${BTCRPCexplorer}" = "on" ]; then
