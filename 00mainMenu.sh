@@ -111,7 +111,7 @@ case $CHOICE in
             ./00mainMenu.sh
             ;;
         TOR)
-            bash ./00torMenu.sh
+            ./00torMenu.sh
             ./00mainMenu.sh
             ;;
         lnchannels)
