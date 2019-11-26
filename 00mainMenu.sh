@@ -1,5 +1,4 @@
 #!/bin/bash
-runBehindTor=on
 echo "Starting the main menu ..."
 
 # CONFIGFILE - configuration of RaspiBlitz

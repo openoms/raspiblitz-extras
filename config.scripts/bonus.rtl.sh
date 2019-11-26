@@ -109,7 +109,7 @@ if [ "$1" = "1" ] || [ "$1" = "on" ]; then
 HiddenServiceDir /mnt/hdd/tor/RTL
 HiddenServiceVersion 3
 HiddenServicePort 80 127.0.0.1:3000
-      " | sudo tee -a /etc/tor/torrc
+" | sudo tee -a /etc/tor/torrc
   
       sudo systemctl restart tor
       sleep 2

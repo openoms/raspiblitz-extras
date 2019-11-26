@@ -169,7 +169,7 @@ EOF
 HiddenServiceDir /mnt/hdd/tor/btc-rpc-explorer
 HiddenServiceVersion 3
 HiddenServicePort 80 127.0.0.1:3002
-      " | sudo tee -a /etc/tor/torrc
+" | sudo tee -a /etc/tor/torrc
 
       sudo systemctl restart tor
       sleep 2

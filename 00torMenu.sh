@@ -1,12 +1,14 @@
 #!/bin/bash
 
+# correct Hidden Services for RTL and BTC-RPC-Explorer
+sudo sed -i "s/^HiddenServicePort 3000 127.0.0.1:3000/HiddenServicePort 80 127.0.0.1:3000/g" /etc/tor/torrc
+sudo sed -i "s/^HiddenServicePort 3002 127.0.0.1:3002/HiddenServicePort 80 127.0.0.1:3002/g" /etc/tor/torrc
+
 # get raspiblitz config
 echo "get raspiblitz config"
 source /home/admin/raspiblitz.info
 source /mnt/hdd/raspiblitz.conf
-BTCRPCexplorer=on
-RTL=on
-ElectRS=on
+
 echo "run dialog ..."
 
 ./XXaptInstall.sh qrencode
@@ -63,6 +65,19 @@ case $CHOICE in
             ./00mainMenu.sh
             ;;
         RTL)
+            isRTLTor=$(sudo cat /etc/tor/torrc 2>/dev/null | grep -c 'RTL')
+            if [ ${isRTLTor} -eq 0 ]; then
+              echo "
+# Hidden Service for RTL
+HiddenServiceDir /mnt/hdd/tor/RTL
+HiddenServiceVersion 3
+HiddenServicePort 80 127.0.0.1:3000
+" | sudo tee -a /etc/tor/torrc
+              sudo systemctl restart tor
+              sleep 2
+            else
+              echo "The Hidden Service is already installed"
+            fi            
             service=RTL
             hostname=$(sudo cat  /mnt/hdd/tor/$service/hostname)
             echo "The Hidden Service address for $service is:"
@@ -75,6 +90,19 @@ case $CHOICE in
             ./00mainMenu.sh
             ;;        
         EXPLORER)
+            isBtcRpcExplorerTor=$(sudo cat /etc/tor/torrc 2>/dev/null | grep -c 'btc-rpc-explorer')
+            if [ ${isBtcRpcExplorerTor} -eq 0 ]; then
+              echo "
+# Hidden Service for BTC-RPC-explorer
+HiddenServiceDir /mnt/hdd/tor/btc-rpc-explorer
+HiddenServiceVersion 3
+HiddenServicePort 80 127.0.0.1:3002
+" | sudo tee -a /etc/tor/torrc
+              sudo systemctl restart tor
+              sleep 2
+            else
+              echo "The Hidden Service is already installed"
+            fi        
             service=btc-rpc-explorer
             hostname=$(sudo cat  /mnt/hdd/tor/$service/hostname)
             echo "The Hidden Service address for $service is:"
@@ -87,6 +115,19 @@ case $CHOICE in
             ./00mainMenu.sh
             ;;
         ELECTRS)
+            isElectrsTor=$(sudo cat /etc/tor/torrc 2>/dev/null | grep -c 'electrs')
+            if [ ${isElectrsTor} -eq 0 ]; then
+              echo "
+# Hidden Service for Electrum Server
+HiddenServiceDir /mnt/hdd/tor/electrs
+HiddenServiceVersion 3
+HiddenServicePort 50002 127.0.0.1:50002
+" | sudo tee -a /etc/tor/torrc
+              sudo systemctl restart tor
+              sleep 2
+            else
+              echo "The Hidden Service is already installed"
+            fi
             service=electrs
             hostname=$(sudo cat  /mnt/hdd/tor/$service/hostname)
             echo "The Hidden Service address for $service is:"
@@ -99,5 +140,3 @@ case $CHOICE in
             ./00mainMenu.sh
             ;;   
 esac            
-
-
