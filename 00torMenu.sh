@@ -6,8 +6,21 @@ source /home/admin/raspiblitz.info
 source /mnt/hdd/raspiblitz.conf
 
 # correct Hidden Services for RTL and BTC-RPC-Explorer
-sudo sed -i "s/^HiddenServicePort 3000 127.0.0.1:3000/HiddenServicePort 80 127.0.0.1:3000/g" /etc/tor/torrc
-sudo sed -i "s/^HiddenServicePort 3002 127.0.0.1:3002/HiddenServicePort 80 127.0.0.1:3002/g" /etc/tor/torrc
+if [ $(sudo cat /etc/tor/torrc | grep "HiddenServicePort 3000" -c) -eq 1 ]; then
+  torNeedsRestart=1
+  sudo sed -i "s/^HiddenServicePort 3000 127.0.0.1:3000/HiddenServicePort 80 127.0.0.1:3000/g" /etc/tor/torrc
+elif [ $(sudo cat /etc/tor/torrc | grep "HiddenServicePort 3002" -c) -eq 1 ]; then
+  torNeedsRestart=1
+  sudo sed -i "s/^HiddenServicePort 3002 127.0.0.1:3002/HiddenServicePort 80 127.0.0.1:3002/g" /etc/tor/torrc
+else
+  torNeedsRestart=0
+fi
+
+if [ $torNeedsRestart -eq 1 ]; then
+  sudo systemctl restart tor
+  echo "Restarting Tor after fixing Hidden Service ports"
+  sleep 5
+fi
 
 # add value for ElectRS to raspi config if needed
 if [ ${#ElectRS} -eq 0 ]; then
@@ -18,6 +31,7 @@ if [ ${isInstalled} -eq 1 ]; then
  # setting value in raspiblitz config
   sudo sed -i "s/^ElectRS=.*/ElectRS=on/g" /mnt/hdd/raspiblitz.conf
 fi
+source /mnt/hdd/raspiblitz.conf
 
 echo "run dialog ..."
 
@@ -44,7 +58,6 @@ fi
 if [ "${ElectRS}" = "on" ]; then
   OPTIONS+=(ELECTRS "Electrum Rust Server address")  
 fi
-
 
 dialogcancel=$?
 echo "done dialog"
@@ -84,7 +97,8 @@ HiddenServiceVersion 3
 HiddenServicePort 80 127.0.0.1:3000
 " | sudo tee -a /etc/tor/torrc
               sudo systemctl restart tor
-              sleep 2
+              echo "Restarting Tor to activate the Hidden Service..."
+              sleep 10
             else
               echo "The Hidden Service is already installed"
             fi            
@@ -109,7 +123,8 @@ HiddenServiceVersion 3
 HiddenServicePort 80 127.0.0.1:3002
 " | sudo tee -a /etc/tor/torrc
               sudo systemctl restart tor
-              sleep 2
+              echo "Restarting Tor to activate the Hidden Service..."
+              sleep 10
             else
               echo "The Hidden Service is already installed"
             fi        
@@ -134,7 +149,8 @@ HiddenServiceVersion 3
 HiddenServicePort 50002 127.0.0.1:50002
 " | sudo tee -a /etc/tor/torrc
               sudo systemctl restart tor
-              sleep 2
+              echo "Restarting Tor to activate the Hidden Service..."
+              sleep 10
             else
               echo "The Hidden Service is already installed"
             fi
