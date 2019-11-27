@@ -95,3 +95,9 @@ More info here: https://learn.pimoroni.com/tutorial/sandyj/getting-started-with-
 `$ wget https://raw.githubusercontent.com/openoms/raspiblitz-extras/master/config.scripts/bitcoin.update.sh && bash bitcoin.update.sh`
 
 * Not compatible with LND under v0.8.1, update LND first with the script above.
+
+### Connect Fully Noded
+
+* Update the scripts and use the Tor menu.
+* Will activate the bitcoind wallet and txindex too.
+* More info and discussion: https://github.com/rootzoll/raspiblitz/issues/858

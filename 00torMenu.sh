@@ -33,9 +33,10 @@ if [ ${isInstalled} -eq 1 ]; then
 fi
 source /mnt/hdd/raspiblitz.conf
 
-echo "run dialog ..."
-
+echo "Run dialog ..."
+echo "Installing the QR code generator (qrencode)"
 ./XXaptInstall.sh qrencode
+./XXaptInstall.sh fbi
 
 # BASIC MENU INFO
 HEIGHT=11
@@ -48,7 +49,8 @@ OPTIONS=()
 plus=""
 
 # Basic Options
-OPTIONS+=(NYX "Monitor TOR")
+OPTIONS+=(NYX "Monitor TOR" \
+NODED "Connect Fully Noded")
 if [ "${rtlWebinterface}" = "on" ]; then
   OPTIONS+=(RTL "RTL web interface address")  
 fi
@@ -87,6 +89,49 @@ case $CHOICE in
             sudo nyx
             ./00mainMenu.sh
             ;;
+        NODED)
+            sudo sed -i "s/^disablewallet=1/disablewallet=0/g" /etc/tor/torrc
+            ./config.scripts/network.txindex.sh on
+            
+            isNodedTor=$(sudo cat /etc/tor/torrc 2>/dev/null | grep -c 'bitcoinrpc')
+            if [ ${isNodedTor} -eq 0 ]; then
+              echo "
+# Hidden Service for bitcoinrpc / Fully Noded
+HiddenServiceDir /mnt/hdd/tor/bitcoinrpc
+HiddenServiceVersion 3
+HiddenServicePort 8332 127.0.0.1:8332
+" | sudo tee -a /etc/tor/torrc
+              sudo systemctl restart tor
+              echo "Restarting Tor to activate the Hidden Service..."
+              sleep 10
+            else
+              echo "The Hidden Service is already installed"
+            fi
+
+            echo ""
+            echo "        ***WARNING***"
+            echo "The script will show your PASSWORD_B (RPC password from bitcoin.conf)"
+            echo "on your computer screen as text and a QR Code" 
+            echo "Be vary of the windows and bystanders!"
+            echo ""
+            echo "Press ENTER to proceed or CTRL+C to cancel"
+            read key
+
+            RPC_USER=$(sudo cat /mnt/hdd/bitcoin/bitcoin.conf | grep rpcuser | cut -c 9-)
+            PASSWORD_B=$(sudo cat /mnt/hdd/bitcoin/bitcoin.conf | grep rpcpassword | cut -c 13-)
+            hiddenService=$(sudo cat /mnt/hdd/tor/bitcoinrpc/hostname)
+
+            # btcstandup://<rpcuser>:<rpcpassword>@<hidden service hostname>:<hidden service port>/?label=<optional node label> 
+            quickConnect="btcstandup://$RPC_USER:$PASSWORD_B@$hiddenService:8332/?label=$hostname"
+            echo "The QuickConnect URL for Fully noded is:"
+            echo "$quickConnect"
+            echo ""
+            echo "scan the QR Code with Fully Noded to connect to your node:"
+            qrencode -t ANSI256 $quickConnect
+            echo "Press ENTER to return to the menu"
+            read key
+            ./00mainMenu.sh
+            ;;                 
         RTL)
             isRTLTor=$(sudo cat /etc/tor/torrc 2>/dev/null | grep -c 'RTL')
             if [ ${isRTLTor} -eq 0 ]; then
@@ -102,15 +147,7 @@ HiddenServicePort 80 127.0.0.1:3000
             else
               echo "The Hidden Service is already installed"
             fi            
-            service=RTL
-            hostname=$(sudo cat  /mnt/hdd/tor/$service/hostname)
-            echo "The Hidden Service address for $service is:"
-            echo "$hostname"
-            echo ""
-            echo "scan the QR to use it in the Tor Browser on mobile:"
-            qrencode -t ANSI256 $hostname
-            echo "Press ENTER to return to the menu"
-            read key
+            ./XXdisplayHiddenServiceQR.sh RTL
             ./00mainMenu.sh
             ;;        
         EXPLORER)
@@ -128,15 +165,7 @@ HiddenServicePort 80 127.0.0.1:3002
             else
               echo "The Hidden Service is already installed"
             fi        
-            service=btc-rpc-explorer
-            hostname=$(sudo cat  /mnt/hdd/tor/$service/hostname)
-            echo "The Hidden Service address for $service is:"
-            echo "$hostname"
-            echo ""
-            echo "scan the QR to use it in the Tor Browser on mobile:"
-            qrencode -t ANSI256 $hostname
-            echo "Press ENTER to return to the menu"
-            read key
+            ./XXdisplayHiddenServiceQR.sh btc-rpc-explorer
             ./00mainMenu.sh
             ;;
         ELECTRS)
@@ -154,15 +183,7 @@ HiddenServicePort 50002 127.0.0.1:50002
             else
               echo "The Hidden Service is already installed"
             fi
-            service=electrs
-            hostname=$(sudo cat  /mnt/hdd/tor/$service/hostname)
-            echo "The Hidden Service address for $service is:"
-            echo "$hostname"
-            echo ""
-            echo "scan the QR to use it in the Tor Browser on mobile:"
-            qrencode -t ANSI256 $hostname
-            echo "Press ENTER to return to the menu"
-            read key
+            ./XXdisplayHiddenServiceQR.sh electrs
             ./00mainMenu.sh
             ;;   
 esac            
