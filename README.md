@@ -98,6 +98,7 @@ More info here: https://learn.pimoroni.com/tutorial/sandyj/getting-started-with-
 
 ### Connect Fully Noded
 
-* Update the scripts and use the Tor menu.
-* Will activate the bitcoind wallet and txindex too.
+* Download or update the scripts as described on the top 
+* Login with SSH and use the Tor menu to generate a QR for Fully Noded.
+* Will activate the bitcoind wallet and txindex too in the process.
 * More info and discussion: https://github.com/rootzoll/raspiblitz/issues/858
