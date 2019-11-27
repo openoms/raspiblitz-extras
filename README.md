@@ -75,7 +75,8 @@ Run `$ loop monitor` to monitor progress.
 * Install:  
 `$ ./config.scripts/blitz.fanshim.sh`
 
-* It is set to automatically stop between 55 and 70 degrees.
+* It is set to automatically stop under 55 and start above 70 degrees.  
+More info here: https://learn.pimoroni.com/tutorial/sandyj/getting-started-with-fan-shim
 
 ### [LND update to v0.8.1-beta](/config.scripts/lnd.update.sh)
 
