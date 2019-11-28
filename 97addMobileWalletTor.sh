@@ -38,13 +38,16 @@ else
 fi
 
 if [ $1 == zeus ]; then
+  echo ""
   echo "Set up on your mobile: " 
   echo "Zeus: https://zeusln.app/"
   echo "Orbot: https://github.com/openoms/bitcoin-tutorials/blob/master/Zeus_to_RaspiBlitz_through_Tor.md#set-up-orbot"
 elif [ $1 == zap ]; then
-  echo "Download the ZAp Mainnet on iOS Testflight:"
+  echo ""
+  echo "Download the Zap Mainnet Wallet on iOS Testflight:"
   echo "https://zap.jackmallers.com/download/"
 fi
+echo ""
 echo "The QR code to pair will show RaspiBlitz LCD and/or your screen."
 echo "Be careful it is confidential!"
 echo "Press ENTER to continue, CTRL+C to cancel."
