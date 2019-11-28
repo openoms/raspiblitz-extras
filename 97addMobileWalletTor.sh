@@ -21,15 +21,17 @@ HiddenServicePort 8080 127.0.0.1:8080
   sudo systemctl restart tor
   sleep 10
 else
-    echo "The Hidden Service is already installed"
+  echo "The Hidden Service is already installed"
 fi
 # make sure Go is installed
 /home/admin/config.scripts/go.install.sh
 # make sure lndconnect is installed
-if [ $(lndconnect -h | grep "nocert" -c) -eq 0 ]; then
+isInstalled=$(lndconnect -h | grep "nocert" -c)
+if [ $isInstalled -eq 0 ]; then
+  echo "Installing lndconnect.."
   # Install latest lndconnect from source:
   go get -d github.com/LN-Zap/lndconnect
-  cd $GOPATH/src/github.com/LN-Zap/lndconnect
+  cd /usr/local/gocode/src/github.com/LN-Zap/lndconnect
   make
 else
   echo "lndconnect is already installed" 

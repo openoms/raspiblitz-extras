@@ -54,6 +54,7 @@ if [ ${goInstalled} -eq 0 ];then
   export GOPATH=/usr/local/gocode
   export PATH=$PATH:$GOPATH/bin
   sudo bash -c "echo 'PATH=\$PATH:/usr/local/gocode/bin/' >> /etc/profile"
+  sudo bash -c "echo 'PATH=\$PATH:/usr/local/go/bin/' >> /etc/profile"
   goInstalled=$(go version 2>/dev/null | grep -c 'go')
 fi
 if [ ${goInstalled} -eq 0 ];then
@@ -69,7 +70,6 @@ if [ ${correctGoVersion} -eq 0 ]; then
   sleep 6
   echo ""
 fi
-
 
 echo "***"
 echo "Installed $(go version)"
