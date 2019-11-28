@@ -31,7 +31,7 @@ if [ $isInstalled -eq 0 ]; then
   echo "Installing lndconnect.."
   # Install latest lndconnect from source:
   go get -d github.com/LN-Zap/lndconnect
-  cd /usr/local/gocode/src/github.com/LN-Zap/lndconnect
+  cd /home/admin/go/src/github.com/LN-Zap/lndconnect
   make
 else
   echo "lndconnect is already installed" 

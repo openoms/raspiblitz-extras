@@ -53,8 +53,10 @@ if [ ${goInstalled} -eq 0 ];then
   export PATH=$PATH:$GOROOT/bin
   export GOPATH=/usr/local/gocode
   export PATH=$PATH:$GOPATH/bin
+  export PATH=$PATH:/home/admin/go/bin/
   sudo bash -c "echo 'PATH=\$PATH:/usr/local/gocode/bin/' >> /etc/profile"
   sudo bash -c "echo 'PATH=\$PATH:/usr/local/go/bin/' >> /etc/profile"
+  sudo bash -c "echo 'PATH=\$PATH:/home/admin/go/bin/' >> /etc/profile"
   goInstalled=$(go version 2>/dev/null | grep -c 'go')
 fi
 if [ ${goInstalled} -eq 0 ];then
