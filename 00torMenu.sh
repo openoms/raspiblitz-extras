@@ -50,7 +50,9 @@ plus=""
 
 # Basic Options
 OPTIONS+=(NYX "Monitor TOR" \
-NODED "Connect Fully Noded")
+ZEUS "Connect Zeus over Tor (Android)" \
+ZAP "Connect Zap over Tor (iOS TestFlight)" \
+NODED "Connect Fully Noded (iOS TestFlight)" )
 if [ "${rtlWebinterface}" = "on" ]; then
   OPTIONS+=(RTL "RTL web interface address")  
 fi
@@ -89,6 +91,14 @@ case $CHOICE in
             sudo nyx
             ./00mainMenu.sh
             ;;
+        ZEUS)
+            ./97addMobileWalletTor.sh zeus
+            ./00mainMenu.sh
+            ;;
+        ZAP)
+            ./97addMobileWalletTor.sh zap
+            ./00mainMenu.sh
+            ;;
         NODED)
             sudo sed -i "s/^disablewallet=1/disablewallet=0/g" /etc/tor/torrc
             ./config.scripts/network.txindex.sh on
@@ -101,8 +111,8 @@ HiddenServiceDir /mnt/hdd/tor/bitcoinrpc
 HiddenServiceVersion 3
 HiddenServicePort 8332 127.0.0.1:8332
 " | sudo tee -a /etc/tor/torrc
-              sudo systemctl restart tor
               echo "Restarting Tor to activate the Hidden Service..."
+              sudo systemctl restart tor
               sleep 10
             else
               echo "The Hidden Service is already installed"
@@ -141,8 +151,8 @@ HiddenServiceDir /mnt/hdd/tor/RTL
 HiddenServiceVersion 3
 HiddenServicePort 80 127.0.0.1:3000
 " | sudo tee -a /etc/tor/torrc
-              sudo systemctl restart tor
               echo "Restarting Tor to activate the Hidden Service..."
+              sudo systemctl restart tor
               sleep 10
             else
               echo "The Hidden Service is already installed"
@@ -159,8 +169,8 @@ HiddenServiceDir /mnt/hdd/tor/btc-rpc-explorer
 HiddenServiceVersion 3
 HiddenServicePort 80 127.0.0.1:3002
 " | sudo tee -a /etc/tor/torrc
-              sudo systemctl restart tor
               echo "Restarting Tor to activate the Hidden Service..."
+              sudo systemctl restart tor
               sleep 10
             else
               echo "The Hidden Service is already installed"
@@ -177,8 +187,8 @@ HiddenServiceDir /mnt/hdd/tor/electrs
 HiddenServiceVersion 3
 HiddenServicePort 50002 127.0.0.1:50002
 " | sudo tee -a /etc/tor/torrc
-              sudo systemctl restart tor
               echo "Restarting Tor to activate the Hidden Service..."
+              sudo systemctl restart tor
               sleep 10
             else
               echo "The Hidden Service is already installed"

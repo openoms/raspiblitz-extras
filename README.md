@@ -102,3 +102,15 @@ More info here: https://learn.pimoroni.com/tutorial/sandyj/getting-started-with-
 * Login with SSH and use the Tor menu to generate a QR for Fully Noded.
 * Will activate the bitcoind wallet and txindex too in the process.
 * More info and discussion: https://github.com/rootzoll/raspiblitz/issues/858
+
+### Connect Zeus over Tor (Android)
+
+* Download or update the scripts as described on the top 
+* Login with SSH and use the Tor menu to generate a QR code
+* more info: https://github.com/openoms/bitcoin-tutorials/blob/master/Zeus_to_RaspiBlitz_through_Tor.md
+
+### Connect Zap over Tor (iOs TestFlight)
+
+* Download or update the scripts as described on the top 
+* Login with SSH and use the Tor menu to generate a QR code
+* more info: https://github.com/openoms/bitcoin-tutorials/blob/master/Zap_to_RaspiBlitz_through_Tor.md
