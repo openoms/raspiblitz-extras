@@ -39,9 +39,9 @@ echo "Installing the QR code generator (qrencode)"
 ./XXaptInstall.sh fbi
 
 # BASIC MENU INFO
-HEIGHT=11
+HEIGHT=14
 WIDTH=64
-CHOICE_HEIGHT=6
+CHOICE_HEIGHT=7
 BACKTITLE="RaspiBlitz"
 TITLE=""
 MENU="Choose one of the following options:"
@@ -88,7 +88,7 @@ case $CHOICE in
             exit 1;
             ;;
         NYX)
-            sudo nyx
+            sudo -u bitcoin nyx
             ./00mainMenu.sh
             ;;
         ZEUS)
