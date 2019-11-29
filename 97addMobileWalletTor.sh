@@ -23,15 +23,34 @@ HiddenServicePort 8080 127.0.0.1:8080
 else
   echo "The Hidden Service is already installed"
 fi
+
+# export go vars (if needed)
+if [ ${#GOROOT} -eq 0 ]; then
+  export GOROOT=/usr/local/go
+  export PATH=$PATH:$GOROOT/bin
+fi
+if [ ${#GOPATH} -eq 0 ]; then
+  export GOPATH=/usr/local/gocode
+  export PATH=$PATH:$GOPATH/bin
+fi
+
 # make sure Go is installed
 /home/admin/config.scripts/go.install.sh
-# make sure lndconnect is installed
+# make sure latest lndconnect is installed
 isInstalled=$(lndconnect -h | grep "nocert" -c)
 if [ $isInstalled -eq 0 ]; then
   echo "Installing lndconnect.."
   # Install latest lndconnect from source:
   go get -d github.com/LN-Zap/lndconnect
-  cd /home/admin/go/src/github.com/LN-Zap/lndconnect
+  # locate lndconnect doenload dir on different blitz versions
+  if [ -d /home/admin/go/src/github.com/LN-Zap/lndconnect ] ; then
+    cd /home/admin/go/src/github.com/LN-Zap/lndconnect
+  elif [ -d /usr/local/gocode/src/github.com/LN-Zap/lndconnect ] ; then 
+    cd /usr/local/gocode/src/github.com/LN-Zap/lndconnect
+  else
+    echo "path to lndconnect is unknown"
+    exit 1
+  fi
   make
 else
   echo "lndconnect is already installed" 
