@@ -1,5 +1,5 @@
 #!/bin/bash
-
+clear
 # get wallet from argument
 if [ $1 == zeus ]; then
  echo "pairing Zeus"

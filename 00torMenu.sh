@@ -100,11 +100,12 @@ case $CHOICE in
             ./00mainMenu.sh
             ;;
         NODED)
-            sudo sed -i "s/^disablewallet=1/disablewallet=0/g" /etc/tor/torrc
-            ./config.scripts/network.txindex.sh on
-            
+            clear
+            /home/admin/config.scripts/network.wallet.sh on
+            /home/admin/config.scripts/network.txindex.sh on
             isNodedTor=$(sudo cat /etc/tor/torrc 2>/dev/null | grep -c 'bitcoinrpc')
             if [ ${isNodedTor} -eq 0 ]; then
+              clear
               echo "
 # Hidden Service for bitcoinrpc / Fully Noded
 HiddenServiceDir /mnt/hdd/tor/bitcoinrpc
@@ -117,7 +118,6 @@ HiddenServicePort 8332 127.0.0.1:8332
             else
               echo "The Hidden Service is already installed"
             fi
-
             echo ""
             echo "        ***WARNING***"
             echo "The script will show your PASSWORD_B (RPC password from bitcoin.conf)"
@@ -143,6 +143,7 @@ HiddenServicePort 8332 127.0.0.1:8332
             ./00mainMenu.sh
             ;;                 
         RTL)
+            clear
             isRTLTor=$(sudo cat /etc/tor/torrc 2>/dev/null | grep -c 'RTL')
             if [ ${isRTLTor} -eq 0 ]; then
               echo "
@@ -161,6 +162,7 @@ HiddenServicePort 80 127.0.0.1:3000
             ./00mainMenu.sh
             ;;        
         EXPLORER)
+            clear
             isBtcRpcExplorerTor=$(sudo cat /etc/tor/torrc 2>/dev/null | grep -c 'btc-rpc-explorer')
             if [ ${isBtcRpcExplorerTor} -eq 0 ]; then
               echo "
