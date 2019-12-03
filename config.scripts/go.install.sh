@@ -20,7 +20,7 @@ isX86_64=$(uname -m | grep -c 'x86_64')
 isX86_32=$(uname -m | grep -c 'i386\|i486\|i586\|i686\|i786')
 
 # make sure go is installed
-echo "### Check Framework: GO ###"
+echo "Check Framework: Go"
 goInstalled=$(go version 2>/dev/null | grep -c 'go')
 if [ ${goInstalled} -eq 0 ];then
   if [ ${isARM} -eq 1 ] ; then
@@ -69,10 +69,10 @@ correctGoVersion=$(go version | grep -c "go${goVersion}")
 if [ ${correctGoVersion} -eq 0 ]; then
   echo "WARNING: You work with an untested version of GO - should be ${goVersion} .. trying to continue"
   go version
-  sleep 6
+  sleep 3
   echo ""
 fi
 
-echo "***"
+echo ""
 echo "Installed $(go version)"
-echo "***"
+echo ""

@@ -100,102 +100,40 @@ case $CHOICE in
             ./00mainMenu.sh
             ;;
         NODED)
-            clear
-            /home/admin/config.scripts/network.wallet.sh on
-            /home/admin/config.scripts/network.txindex.sh on
-            isNodedTor=$(sudo cat /etc/tor/torrc 2>/dev/null | grep -c 'bitcoinrpc')
-            if [ ${isNodedTor} -eq 0 ]; then
-              clear
-              echo "
-# Hidden Service for bitcoinrpc / Fully Noded
-HiddenServiceDir /mnt/hdd/tor/bitcoinrpc
-HiddenServiceVersion 3
-HiddenServicePort 8332 127.0.0.1:8332
-" | sudo tee -a /etc/tor/torrc
-              echo "Restarting Tor to activate the Hidden Service..."
-              sudo systemctl restart tor
-              sleep 10
-            else
-              echo "The Hidden Service is already installed"
-            fi
-            echo ""
-            echo "        ***WARNING***"
-            echo "The script will show your PASSWORD_B (RPC password from bitcoin.conf)"
-            echo "on your computer screen as text and a QR Code" 
-            echo "Be vary of the windows and bystanders!"
-            echo ""
-            echo "Press ENTER to proceed or CTRL+C to cancel"
-            read key
-
-            RPC_USER=$(sudo cat /mnt/hdd/bitcoin/bitcoin.conf | grep rpcuser | cut -c 9-)
-            PASSWORD_B=$(sudo cat /mnt/hdd/bitcoin/bitcoin.conf | grep rpcpassword | cut -c 13-)
-            hiddenService=$(sudo cat /mnt/hdd/tor/bitcoinrpc/hostname)
-
-            # btcstandup://<rpcuser>:<rpcpassword>@<hidden service hostname>:<hidden service port>/?label=<optional node label> 
-            quickConnect="btcstandup://$RPC_USER:$PASSWORD_B@$hiddenService:8332/?label=$hostname"
-            echo "The QuickConnect URL for Fully noded is:"
-            echo "$quickConnect"
-            echo ""
-            echo "scan the QR Code with Fully Noded to connect to your node:"
-            qrencode -t ANSI256 $quickConnect
-            echo "Press ENTER to return to the menu"
-            read key
+            ./97addMobileWalletFullyNoded.sh
             ./00mainMenu.sh
             ;;                 
         RTL)
             clear
-            isRTLTor=$(sudo cat /etc/tor/torrc 2>/dev/null | grep -c 'RTL')
-            if [ ${isRTLTor} -eq 0 ]; then
-              echo "
-# Hidden Service for RTL
-HiddenServiceDir /mnt/hdd/tor/RTL
-HiddenServiceVersion 3
-HiddenServicePort 80 127.0.0.1:3000
-" | sudo tee -a /etc/tor/torrc
-              echo "Restarting Tor to activate the Hidden Service..."
-              sudo systemctl restart tor
-              sleep 10
-            else
-              echo "The Hidden Service is already installed"
-            fi            
+            ./config.scripts/internet.hiddenservice.sh RTL 80 3000          
             ./XXdisplayHiddenServiceQR.sh RTL
             ./00mainMenu.sh
             ;;        
         EXPLORER)
             clear
-            isBtcRpcExplorerTor=$(sudo cat /etc/tor/torrc 2>/dev/null | grep -c 'btc-rpc-explorer')
-            if [ ${isBtcRpcExplorerTor} -eq 0 ]; then
-              echo "
-# Hidden Service for BTC-RPC-explorer
-HiddenServiceDir /mnt/hdd/tor/btc-rpc-explorer
-HiddenServiceVersion 3
-HiddenServicePort 80 127.0.0.1:3002
-" | sudo tee -a /etc/tor/torrc
-              echo "Restarting Tor to activate the Hidden Service..."
-              sudo systemctl restart tor
-              sleep 10
-            else
-              echo "The Hidden Service is already installed"
-            fi        
+            ./config.scripts/internet.hiddenservice.sh btc-rpc-explorer 80 3002        
             ./XXdisplayHiddenServiceQR.sh btc-rpc-explorer
             ./00mainMenu.sh
             ;;
         ELECTRS)
-            isElectrsTor=$(sudo cat /etc/tor/torrc 2>/dev/null | grep -c 'electrs')
-            if [ ${isElectrsTor} -eq 0 ]; then
-              echo "
-# Hidden Service for Electrum Server
-HiddenServiceDir /mnt/hdd/tor/electrs
-HiddenServiceVersion 3
-HiddenServicePort 50002 127.0.0.1:50002
-" | sudo tee -a /etc/tor/torrc
-              echo "Restarting Tor to activate the Hidden Service..."
-              sudo systemctl restart tor
-              sleep 10
-            else
-              echo "The Hidden Service is already installed"
-            fi
-            ./XXdisplayHiddenServiceQR.sh electrs
+            clear
+            ./config.scripts/internet.hiddenservice.sh electrs 50002 50002
+            ./config.scripts/internet.hiddenservice.sh electrsTCP 50001 50001
+            TOR_ADDRESS=$(sudo cat /mnt/hdd/tor/electrs/hostname)
+            echo ""
+            echo "The Tor Hidden Service address for electrs is:"
+            echo "$TOR_ADDRESS"
+            echo ""
+            echo "To connect the Electrumwallet through Tor open the Tor Browser and start Electrum with the options:" 
+            echo "\`electrum --oneserver --server=$TOR_ADDRESS:50002:s --proxy socks5:127.0.0.1:9150\`"
+            echo ""
+            echo "See the docs for more detailed instructions to connect Electrum on Windows/Mac/Linux:"
+            echo "https://github.com/openoms/bitcoin-tutorials/tree/master/electrs#connect-the-electrum-wallet-to-electrs"
+            echo "" 
+            echo "scan the QR to use the Tor address in Electrum on mobile:"
+            qrencode -t ANSI256 $TOR_ADDRESS
+            echo "Press ENTER to return to the menu"
+            read key
             ./00mainMenu.sh
             ;;   
 esac            

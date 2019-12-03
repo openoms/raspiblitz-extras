@@ -1,41 +1,22 @@
 #!/bin/bash
 clear
+
 # get wallet from argument
 if [ $1 == zeus ]; then
- echo "pairing Zeus"
+  echo "pairing Zeus"
 elif [ $1 == zap ]; then
- echo "pairing Zap"
+  echo "pairing Zap"
+elif [ $1 == noded ]; then
+  echo "pairing Fully Noded"
 else 
-  echo "pair either Zap or Zeus"
+  echo "pair either Zap, Zeus or Fully Noded"
 fi
 
-islnd_RESTtor=$(sudo cat /etc/tor/torrc 2>/dev/null | grep -c 'lnd_REST')
-if [ ${islnd_RESTtor} -eq 0 ]; then
-  echo "
-# Hidden Service for the lnd REST API            
-HiddenServiceDir /mnt/hdd/tor/lnd_REST/
-HiddenServiceVersion 3
-HiddenServicePort 8080 127.0.0.1:8080
-" | sudo tee -a /etc/tor/torrc
-  echo "Restarting Tor to activate the Hidden Service..."
-  sudo systemctl restart tor
-  sleep 10
-else
-  echo "The Hidden Service is already installed"
-fi
-
-# export go vars (if needed)
-if [ ${#GOROOT} -eq 0 ]; then
-  export GOROOT=/usr/local/go
-  export PATH=$PATH:$GOROOT/bin
-fi
-if [ ${#GOPATH} -eq 0 ]; then
-  export GOPATH=/usr/local/gocode
-  export PATH=$PATH:$GOPATH/bin
-fi
+./config.scripts/internet.hiddenservice.sh lnd_REST 8080 8080
 
 # make sure Go is installed
 /home/admin/config.scripts/go.install.sh
+
 # make sure latest lndconnect is installed
 isInstalled=$(lndconnect -h | grep "nocert" -c)
 if [ $isInstalled -eq 0 ]; then
@@ -63,13 +44,18 @@ if [ $1 == zeus ]; then
   echo "Orbot: https://github.com/openoms/bitcoin-tutorials/blob/master/Zeus_to_RaspiBlitz_through_Tor.md#set-up-orbot"
 elif [ $1 == zap ]; then
   echo ""
-  echo "Download the Zap Mainnet Wallet on iOS Testflight:"
+  echo "Download the Zap Mainnet Wallet from iOS Testflight:"
   echo "https://zap.jackmallers.com/download/"
 fi
 echo ""
-echo "The QR code to pair will show RaspiBlitz LCD and/or your screen."
-echo "Be careful it is confidential!"
+echo "        ***WARNING***"
+echo ""
+echo "The QR code to allow connecting to your node remotely"
+echo "will show on the RaspiBlitz LCD and/or your screen."
+echo "Be aware of the windows, cameras, mirrors and bystanders!"
+echo ""
 echo "Press ENTER to continue, CTRL+C to cancel."
+echo ""
 read key
 
 ./XXdisplayQRlcd_hide.sh

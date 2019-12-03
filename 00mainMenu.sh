@@ -50,6 +50,10 @@ OPTIONS+=(INFO "RaspiBlitz Status Screen" \
   CASHOUT "Remove Funds from on-chain Wallet"
 )
 
+if [ "${runBehindTor}" == "on" ]; then
+  OPTIONS+=(TOR "Tor Service options")  
+fi
+
 # dont offer lnbalance/lnchannels on testnet
 if [ "${chain}" = "main" ]; then
   OPTIONS+=(lnbalance "Detailed Wallet Balances" \
@@ -60,9 +64,6 @@ fi
 openChannels=$(sudo -u bitcoin /usr/local/bin/lncli --chain=${network} --network=${chain}net listchannels 2>/dev/null | jq '.[] | length')
 if [ ${#openChannels} -gt 0 ] && [ ${openChannels} -gt 0 ]; then
   OPTIONS+=(CLOSEALL "Close all open Channels")  
-fi
-if [ "${runBehindTor}" == "on" ]; then
-  OPTIONS+=(TOR "Tor Service options")  
 fi
 
 # final Options
