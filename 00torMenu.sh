@@ -62,6 +62,9 @@ fi
 if [ "${ElectRS}" = "on" ]; then
   OPTIONS+=(ELECTRS "Electrum Rust Server address")  
 fi
+if [ "${BTCPayServer}" = "on" ]; then
+  OPTIONS+=(BTCPAY "BTCPay Server address")  
+fi
 
 dialogcancel=$?
 echo "done dialog"
@@ -135,5 +138,11 @@ case $CHOICE in
             echo "Press ENTER to return to the menu"
             read key
             ./00mainMenu.sh
-            ;;   
+            ;;
+        BTCPAY)
+            clear
+            ./config.scripts/internet.hiddenservice.sh btcpay 80 23000      
+            ./XXdisplayHiddenServiceQR.sh btcpay
+            ./00mainMenu.sh
+            ;;               
 esac            
