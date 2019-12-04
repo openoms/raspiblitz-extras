@@ -4,14 +4,14 @@
 goVersion="1.13.3"
 
 # export go vars (if needed)
-if [ ${#GOROOT} -eq 0 ]; then
-  export GOROOT=/usr/local/go
-  export PATH=$PATH:$GOROOT/bin
-fi
-if [ ${#GOPATH} -eq 0 ]; then
-  export GOPATH=/usr/local/gocode
-  export PATH=$PATH:$GOPATH/bin
-fi
+#if [ ${#GOROOT} -eq 0 ]; then
+#  export GOROOT=/usr/local/go
+#  export PATH=$PATH:$GOROOT/bin
+#fi
+#if [ ${#GOPATH} -eq 0 ]; then
+#  export GOPATH=/usr/local/gocode
+#  export PATH=$PATH:$GOPATH/bin
+#fi
 
 # get cpu architecture
 isARM=$(uname -m | grep -c 'arm')
@@ -53,7 +53,6 @@ if [ ${goInstalled} -eq 0 ];then
   export PATH=$PATH:$GOROOT/bin
   export GOPATH=/usr/local/gocode
   export PATH=$PATH:$GOPATH/bin
-  export PATH=$PATH:/home/admin/go/bin/
   sudo bash -c "echo 'GOROOT=/usr/local/go' >> /etc/profile"
   sudo bash -c "echo 'PATH=\$PATH:\$GOROOT/bin/' >> /etc/profile"
   sudo bash -c "echo 'GOPATH=/usr/local/gocode' >> /etc/profile"   
