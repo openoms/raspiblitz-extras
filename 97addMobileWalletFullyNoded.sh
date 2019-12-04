@@ -9,7 +9,6 @@ echo ""
 echo "Find the links to download Fully Noded here:"
 echo "https://github.com/Fonta1n3/FullyNoded#join-the-testflight"
 
-
 echo ""
 echo "        ***WARNING***"
 echo ""

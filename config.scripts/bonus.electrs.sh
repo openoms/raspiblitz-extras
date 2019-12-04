@@ -111,7 +111,7 @@ EOF
     echo "Open port 50001 on UFW "
     echo "***"
     echo ""
-    sudo ufw allow 50001
+    sudo ufw allow 50001 comment 'electrs TCP'
 
     echo ""
     echo "***"
@@ -242,7 +242,7 @@ stream {
     fi
 
     echo "allow port 50002 on ufw"
-    sudo ufw allow 50002
+    sudo ufw allow 50002 comment 'electrs-nginx SSL'
 
     sudo systemctl enable nginx
     sudo systemctl restart nginx

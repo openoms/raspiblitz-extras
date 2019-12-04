@@ -254,8 +254,8 @@ BTC.lightning=type=lnd-rest;server=https://127.0.0.1:8080/;macaroonfilepath=/hom
     # install nginx and certbot
     sudo apt-get install nginx-full certbot -y
     
-    sudo ufw allow 80
-    sudo ufw allow 443
+    sudo ufw allow 80 comment 'btcpayserver TCP'
+    sudo ufw allow 443 comment 'btcpayserver SSL'
     
     # get SSL cert
     sudo systemctl stop certbot 2>/dev/null

@@ -60,6 +60,8 @@ if [ ${goInstalled} -eq 0 ];then
   sudo bash -c "echo 'PATH=\$PATH:\$GOPATH/bin/' >> /etc/profile"
   #export PATH=$PATH:/home/admin/go/bin/
   #sudo bash -c "echo 'PATH=\$PATH:/home/admin/go/bin/' >> /etc/profile"
+  #echo "export GOPATH=$HOME/go" >> .profile
+  
   goInstalled=$(go version 2>/dev/null | grep -c 'go')
 fi
 if [ ${goInstalled} -eq 0 ];then

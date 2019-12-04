@@ -6,10 +6,8 @@ if [ $1 == zeus ]; then
   echo "pairing Zeus"
 elif [ $1 == zap ]; then
   echo "pairing Zap"
-elif [ $1 == noded ]; then
-  echo "pairing Fully Noded"
 else 
-  echo "pair either Zap, Zeus or Fully Noded"
+  echo "pair either Zap or Zeus"
 fi
 
 ./config.scripts/internet.hiddenservice.sh lnd_REST 8080 8080
