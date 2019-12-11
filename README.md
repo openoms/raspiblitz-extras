@@ -5,7 +5,7 @@ WIP - help with testing is much appreciated.
 * login to your RaspiBlitz with the user `admin`:  
     `ssh admin@RASPIBLITZ_IP`
 
-## Download the scripts
+## Download the  extra scripts
 
 * Run these in the RaspiBlitz terminal to (re)download the scripts from this repo: 
 
@@ -20,38 +20,6 @@ WIP - help with testing is much appreciated.
     ```
 *  install / reinstall the updated services.
 ---
-
-### [BTCPay Server v1.0.3.144](config.scripts/bonus.btcpayserver.sh)
-https://github.com/rootzoll/raspiblitz/issues/214
-
-* Use the `SERVICE` menu to install / uninstall.
-
-* Read more and find basic help here:   
-https://github.com/openoms/bitcoin-tutorials/blob/master/BTCPayServer/README.md
-
-
-### [BTC-RPC-Explorer](/config.scripts/bonus.btc-rpc-explorer.sh)
-https://github.com/rootzoll/raspiblitz/issues/760
-* Use the `SERVICE` menu to install / uninstall.
-
-* Once the txindex is created open in a browser to connect:  
-`http://RASPIBLITZ_IP:3002`
-
-* For the RPC Browser and Terminal:
-    * username can be anything (not checked)
-    * password is the `Password_B` of the RaspiBlitz
-
-### [RTL update to v0.5.4](/config.scripts/bonus.rtl.sh)
-* Use the `SERVICE` menu to uninstall the old version (if used) and install the updated version.
-* Open in the browser to connect:  
-`http://RASPIBLITZ_IP:3000`
-
-### [Electrum Rust Server v0.8.0](/config.scripts/bonus.electrs.sh) 
-https://github.com/rootzoll/raspiblitz/issues/123
-* Install:  
-`$ ./config.scripts/bonus.electrs.sh on`
-
-* More info: https://github.com/openoms/bitcoin-tutorials/blob/master/electrs/README.md    
 
 ### [lndmanage](https://github.com/bitromortac/lndmanage)
 * Install:  
@@ -96,21 +64,63 @@ More info here: https://learn.pimoroni.com/tutorial/sandyj/getting-started-with-
 
 * Not compatible with LND under v0.8.1, update LND first with the script above.
 
+----
+
+## Test the functions coming to the next release
+
+Will need to sync the latest scripts from my forked repo
+(same way as the testing was done for this PR: https://github.com/rootzoll/raspiblitz/pull/896):
+
+```
+cd /home/admin/raspiblitz
+git remote set-url origin https://github.com/openoms/raspiblitz.git
+/home/admin/XXsyncScripts.sh 1.4extras
+cd
+```
+----
+
+### [BTCPay Server v1.0.3.144](config.scripts/bonus.btcpayserver.sh)
+https://github.com/rootzoll/raspiblitz/issues/214
+
+* Use the `SERVICE` menu to install / uninstall.
+
+* Read more and find basic help here:   
+https://github.com/openoms/bitcoin-tutorials/blob/master/BTCPayServer/README.md
+
+
+### [BTC-RPC-Explorer](/config.scripts/bonus.btc-rpc-explorer.sh)
+https://github.com/rootzoll/raspiblitz/issues/760
+* Use the `SERVICE` menu to install / uninstall.
+
+
+### [RTL update to v0.5.4](/config.scripts/bonus.rtl.sh)
+* Use the `SERVICE` menu to uninstall the old version (if used) and install the updated version.
+* Open in the browser to connect:  
+`http://RASPIBLITZ_IP:3000`
+
+### [Electrum Rust Server v0.8.0](/config.scripts/bonus.electrs.sh) 
+https://github.com/rootzoll/raspiblitz/issues/123
+
+* Use the `SERVICE` menu to install / uninstall.
+
+* More info: https://github.com/openoms/bitcoin-tutorials/blob/master/electrs/README.md    
+
+
 ### Connect Fully Noded
 
-* Download or update the scripts as described on the top 
+* Sync the scripts from my forked repo as described on the top 
 * Login with SSH and use the Tor menu to generate a QR for Fully Noded.
 * Will activate the bitcoind wallet and txindex too in the process.
 * More info and discussion: https://github.com/rootzoll/raspiblitz/issues/858
 
 ### Connect Zeus over Tor (Android)
 
-* Download or update the scripts as described on the top 
+* Sync the scripts from my forked repo as described on the top 
 * Login with SSH and use the Tor menu to generate a QR code
 * more info: https://github.com/openoms/bitcoin-tutorials/blob/master/Zeus_to_RaspiBlitz_through_Tor.md
 
-### Connect Zap over Tor (iOs TestFlight)
+### Connect Zap over Tor (iOS TestFlight)
 
-* Download or update the scripts as described on the top 
+* Sync the scripts from my forked repo as described on the top 
 * Login with SSH and use the Tor menu to generate a QR code
 * more info: https://github.com/openoms/bitcoin-tutorials/blob/master/Zap_to_RaspiBlitz_through_Tor.md
