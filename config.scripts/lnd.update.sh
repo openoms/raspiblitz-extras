@@ -8,7 +8,7 @@
 ## based on https://github.com/Stadicus/guides/blob/master/raspibolt/raspibolt_40_lnd.md#lightning-lnd
 ## see LND releases: https://github.com/lightningnetwork/lnd/releases
 
-lndVersion="0.8.1-beta"  # the version you would like to be updated
+lndVersion="0.8.2-beta"  # the version you would like to be updated
 downloadDir="/home/admin/download"  # edit your download directory
 
 # check who signed the release in https://github.com/lightningnetwork/lnd/releases
