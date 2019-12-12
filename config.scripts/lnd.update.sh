@@ -118,5 +118,5 @@ sleep 5
 echo ""
 echo "Installed ${installed}"
 
-sleep 5
+sleep 10
 lncli unlock
