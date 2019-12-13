@@ -5,7 +5,7 @@ WIP - help with testing is much appreciated.
 * login to your RaspiBlitz with the user `admin`:  
     `ssh admin@RASPIBLITZ_IP`
 
-## Download the  extra scripts
+## Download the extra scripts
 
 * Run these in the RaspiBlitz terminal to (re)download the scripts from this repo: 
 
@@ -46,17 +46,20 @@ Run `$ loop monitor` to monitor progress.
 * It is set to automatically stop under 55 and start above 70 degrees.  
 More info here: https://learn.pimoroni.com/tutorial/sandyj/getting-started-with-fan-shim
 
-### [LND update to v0.8.2-beta](/config.scripts/lnd.update.sh)
-
+### [LND Update](/config.scripts/lnd.update.sh)
+#### v0.8.2-beta
 * If you have downloaded this repo run:  
    `$ ./config.scripts/lnd.update.sh`
+* To download and run with a single line:
+`$ wget https://raw.githubusercontent.com/openoms/raspiblitz-extras/master/config.scripts/lnd.update.sh && bash lnd.update.sh`
 
-### [Bitcoin Core update to v0.19.0.1](/config.scripts/bitcoin.update.sh)
+
+### [Bitcoin Core Update](/config.scripts/bitcoin.update.sh)
+#### v0.19.0.1
 * If you have downloaded this repo run::  
    `$ ./config.scripts/bitcoin.update.sh`
 * To download and run with a single line:  
 `$ wget https://raw.githubusercontent.com/openoms/raspiblitz-extras/master/config.scripts/bitcoin.update.sh && bash bitcoin.update.sh`
-
 * Not compatible with LND under v0.8.1, update LND first with the script above.
 
 ----
