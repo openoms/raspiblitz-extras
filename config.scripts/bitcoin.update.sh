@@ -23,16 +23,17 @@ else
  echo "OK running on $(uname -m) architecture."
 fi
 
-echo "Checking if LND is up to date"
-lndInstalled=$(lnd --version | grep v0.8.1 -c)
-if [ ${lndInstalled} -eq 1 ]; then
-  echo "ok, LND v0.8.1-beta is installed"
+echo "Checking if LND is up-to-date..."
+lndVersion=$(lnd --version | awk '{print $3}' | cut -d'-' -f1 | sed 's/\.//g')
+if [ ${lndVersion} -ge 081 ]; then
+  echo "LND is up-to-date."
 else
-  echo""
-  echo "LND version lower than v0.8.1 is incompatible with bitcoin v0.19"
-  echo "Update LND first"
-  echo "Find the update script here: https://github.com/openoms/raspiblitz-extras#lnd-update-to-v081-beta"
-  exit 1
+  echo ""
+  echo "LND is not up-to-date."
+  echo "LND < v0.8.1 is incompatible with Bitcoin Core v0.19.0.1"
+  echo "Please update LND via the update script found here:"
+  echo "https://github.com/openoms/raspiblitz-extras/#lnd-update"
+ exit 1
 fi
 
 echo ""
