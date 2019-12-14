@@ -69,6 +69,9 @@ More info here: https://learn.pimoroni.com/tutorial/sandyj/getting-started-with-
 Will need to sync the latest scripts from my forked repo
 (same way as the testing was done for this PR: https://github.com/rootzoll/raspiblitz/pull/896):
 
+The scripts are synced from this repo: https://github.com/openoms/raspiblitz/tree/1.4extras
+
+With the following commands:
 ```
 cd /home/admin/raspiblitz
 git remote set-url origin https://github.com/openoms/raspiblitz.git
@@ -77,7 +80,7 @@ cd
 ```
 ----
 
-### [BTCPay Server v1.0.3.144](config.scripts/bonus.btcpayserver.sh)
+### BTCPay Server v1.0.3.144
 https://github.com/rootzoll/raspiblitz/issues/214
 
 * Use the `SERVICE` menu to install / uninstall.
@@ -86,17 +89,17 @@ https://github.com/rootzoll/raspiblitz/issues/214
 https://github.com/openoms/bitcoin-tutorials/blob/master/BTCPayServer/README.md
 
 
-### [BTC-RPC-Explorer](/config.scripts/bonus.btc-rpc-explorer.sh)
+### BTC-RPC-Explorer
 https://github.com/rootzoll/raspiblitz/issues/760
 * Use the `SERVICE` menu to install / uninstall.
 
 
-### [RTL update to v0.5.4](/config.scripts/bonus.rtl.sh)
+### RTL update to v0.5.4
 * Use the `SERVICE` menu to uninstall the old version (if used) and install the updated version.
 * Open in the browser to connect:  
 `http://RASPIBLITZ_IP:3000`
 
-### [Electrum Rust Server v0.8.0](/config.scripts/bonus.electrs.sh) 
+### Electrum Rust Server v0.8.0 
 https://github.com/rootzoll/raspiblitz/issues/123
 
 * Use the `SERVICE` menu to install / uninstall.
