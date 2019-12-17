@@ -29,16 +29,6 @@ WIP - help with testing is much appreciated.
 `$ source venv/bin/activate`  
 `(venv) $ lndmanage `
 
-### [Loop service](/config.scripts/bonus.loop.sh)  
-https://github.com/rootzoll/raspiblitz/issues/454
-* Install:  
-`$ ./config.scripts/bonus.loop.sh`
-
-* Usage:  
-`$ loopd` or `$ loopd &` to keep working in the same window  
-`$ loop out --channel CHANNEL_ID --amt MAX_2M_SATS_VALUE`  
-Run `$ loop monitor` to monitor progress.
-
 ### [Install the Fan-Shim software](/config.scripts/blitz.fanshim.sh)
 * Install:  
 `$ ./config.scripts/blitz.fanshim.sh`
@@ -75,7 +65,7 @@ With the following commands:
 ```
 cd /home/admin/raspiblitz
 git remote set-url origin https://github.com/openoms/raspiblitz.git
-/home/admin/XXsyncScripts.sh 1.4extras
+/home/admin/XXsyncScripts.sh 1.4test
 cd
 ```
 ----
@@ -106,6 +96,14 @@ https://github.com/rootzoll/raspiblitz/issues/123
 
 * More info: https://github.com/openoms/bitcoin-tutorials/blob/master/electrs/README.md    
 
+
+### Loop service  
+https://github.com/rootzoll/raspiblitz/issues/454
+* Use the `SERVICE` menu to install / uninstall.
+
+* Usage:  
+`$ loop out --channel CHANNEL_ID --amt MAX_2M_SATS_VALUE`  
+Run `$ loop monitor` to monitor progress.
 
 ### Connect Fully Noded
 
