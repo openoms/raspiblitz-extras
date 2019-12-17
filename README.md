@@ -123,3 +123,13 @@ Run `$ loop monitor` to monitor progress.
 * Sync the scripts from my forked repo as described on the top 
 * Login with SSH and use the Tor menu to generate a QR code
 * more info: https://github.com/openoms/bitcoin-tutorials/blob/master/Zap_to_RaspiBlitz_through_Tor.md
+
+
+---
+
+## Build the SDcard from the test branch:
+
+* Download and flash the Raspbian Buster image (https://github.com/rootzoll/raspiblitz#build-the-sd-card-image)
+* Put the empty file called `ssh` to root of the boot partition of the SDcard
+* Use this command to build: 
+`wget https://raw.githubusercontent.com/openoms/raspiblitz/1.4test/build_sdcard.sh && sudo bash build_sdcard.sh 1.4test openoms`
