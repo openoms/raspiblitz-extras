@@ -56,16 +56,13 @@ More info here: https://learn.pimoroni.com/tutorial/sandyj/getting-started-with-
 
 ## Test the functions coming to the next release
 
-Will need to sync the latest scripts from my forked repo
-(same way as the testing was done for this PR: https://github.com/rootzoll/raspiblitz/pull/896):
-
-The scripts are synced from this repo: https://github.com/openoms/raspiblitz/tree/1.4extras
+Will need to sync the latest scripts from the v1.4 branch: https://github.com/rootzoll/raspiblitz/tree/v1.4
 
 With the following commands:
 ```
 cd /home/admin/raspiblitz
-git remote set-url origin https://github.com/openoms/raspiblitz.git
-/home/admin/XXsyncScripts.sh 1.4test
+git remote set-url origin https://github.com/rootzoll/raspiblitz.git
+/home/admin/XXsyncScripts.sh v1.4 -clean
 cd
 ```
 ----
@@ -132,4 +129,4 @@ Run `$ loop monitor` to monitor progress.
 * Download and flash the Raspbian Buster image (https://github.com/rootzoll/raspiblitz#build-the-sd-card-image)
 * Put the empty file called `ssh` to root of the boot partition of the SDcard
 * Use this command to build: 
-`wget https://raw.githubusercontent.com/openoms/raspiblitz/1.4test/build_sdcard.sh && sudo bash build_sdcard.sh 1.4test openoms`
+`wget https://raw.githubusercontent.com/rootzoll/raspiblitz/v1.4/build_sdcard.sh && sudo bash build_sdcard.sh v1.4`
