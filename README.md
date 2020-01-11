@@ -20,15 +20,6 @@ WIP - help with testing is much appreciated.
     ```
 *  install / reinstall the updated services.
 ---
-
-### [lndmanage](https://github.com/bitromortac/lndmanage)
-* Install:  
-`$ ./config.scripts/bonus.lndmanage.sh`
-
-* Usage (interactive mode):  
-`$ source venv/bin/activate`  
-`(venv) $ lndmanage `
-
 ### [Install the Fan-Shim software](/config.scripts/blitz.fanshim.sh)
 * Install:  
 `$ ./config.scripts/blitz.fanshim.sh`
@@ -67,6 +58,14 @@ cd
 ```
 ----
 
+### [lndmanage](https://github.com/bitromortac/lndmanage)
+
+* Use the `SERVICE` menu to install / uninstall.
+
+* works from the command line, just type:
+    `manage` to activate.
+    
+
 ### BTCPay Server v1.0.3.144
 https://github.com/rootzoll/raspiblitz/issues/214
 
@@ -80,8 +79,16 @@ https://github.com/openoms/bitcoin-tutorials/blob/master/BTCPayServer/README.md
 https://github.com/rootzoll/raspiblitz/issues/760
 * Use the `SERVICE` menu to install / uninstall.
 
+### RTL update to v0.6.0
 
-### RTL update to v0.5.4
+***might need to update NodeJS first if not using a freshSD*** 
+* to uninstall old NOdeJS:
+```
+sudo rm -rf /usr/bin/node
+sudo rm -rf /usr/bin/npm
+sudo rm -rf /usr/bin/npx
+```
+
 * Use the `SERVICE` menu to uninstall the old version (if used) and install the updated version.
 * Open in the browser to connect:  
 `http://RASPIBLITZ_IP:3000`
@@ -120,7 +127,6 @@ Run `$ loop monitor` to monitor progress.
 * Sync the scripts from my forked repo as described on the top 
 * Login with SSH and use the Tor menu to generate a QR code
 * more info: https://github.com/openoms/bitcoin-tutorials/blob/master/Zap_to_RaspiBlitz_through_Tor.md
-
 
 ---
 
