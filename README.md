@@ -1,50 +1,5 @@
 # RaspiBlitz Extras
 
-WIP - help with testing is much appreciated.  
-
-* login to your RaspiBlitz with the user `admin`:  
-    `ssh admin@RASPIBLITZ_IP`
-
-## Download the extra scripts
-
-* Run these in the RaspiBlitz terminal to (re)download the scripts from this repo: 
-
-    ```bash
-    cd
-    rm -rf raspiblitz-extras/
-    git clone https://github.com/openoms/raspiblitz-extras.git
-    cd raspiblitz-extras/
-    sudo chmod -R +x *
-    cp -rf * /home/admin/
-    cd
-    ```
-*  install / reinstall the updated services.
----
-### [Install the Fan-Shim software](/config.scripts/blitz.fanshim.sh)
-* Install:  
-`$ ./config.scripts/blitz.fanshim.sh`
-
-* It is set to automatically stop under 55 and start above 70 degrees.  
-More info here: https://learn.pimoroni.com/tutorial/sandyj/getting-started-with-fan-shim
-
-### [LND Update](/config.scripts/lnd.update.sh)
-#### v0.8.2-beta
-* If you have downloaded this repo run:  
-   `$ ./config.scripts/lnd.update.sh`
-* To download and run with a single line:
-`$ wget https://raw.githubusercontent.com/openoms/raspiblitz-extras/master/config.scripts/lnd.update.sh && bash lnd.update.sh`
-
-
-### [Bitcoin Core Update](/config.scripts/bitcoin.update.sh)
-#### v0.19.0.1
-* If you have downloaded this repo run::  
-   `$ ./config.scripts/bitcoin.update.sh`
-* To download and run with a single line:  
-`$ wget https://raw.githubusercontent.com/openoms/raspiblitz-extras/master/config.scripts/bitcoin.update.sh && bash bitcoin.update.sh`
-* Not compatible with LND under v0.8.1, update LND first with the script above.
-
-----
-
 ## Test the functions coming to the next release
 
 Will need to sync the latest scripts from the v1.4 branch: https://github.com/rootzoll/raspiblitz/tree/v1.4
@@ -136,3 +91,46 @@ Run `$ loop monitor` to monitor progress.
 * Put the empty file called `ssh` to root of the boot partition of the SDcard
 * Use this command to build: 
 `wget https://raw.githubusercontent.com/rootzoll/raspiblitz/v1.4/build_sdcard.sh && sudo bash build_sdcard.sh v1.4`
+
+---
+
+WIP - help with testing is much appreciated.  
+
+* login to your RaspiBlitz with the user `admin`:  
+    `ssh admin@RASPIBLITZ_IP`
+
+## Download the extra scripts
+
+* Run these in the RaspiBlitz terminal to (re)download the scripts from this repo: 
+
+    ```bash
+    cd
+    rm -rf raspiblitz-extras/
+    git clone https://github.com/openoms/raspiblitz-extras.git
+    cd raspiblitz-extras/
+    sudo chmod -R +x *
+    cp -rf * /home/admin/
+    cd
+    ```
+*  install / reinstall the updated services.
+---
+### [Install the Fan-Shim software](/config.scripts/blitz.fanshim.sh)
+* Install:  
+`$ ./config.scripts/blitz.fanshim.sh`
+
+* It is set to automatically stop under 55 and start above 70 degrees.  
+More info here: https://learn.pimoroni.com/tutorial/sandyj/getting-started-with-fan-shim
+
+### [LND Update](/config.scripts/lnd.update.sh)
+
+* Find the latest update scripts here:  
+https://github.com/openoms/lightning-node-management/tree/master/lnd.updates
+
+
+### [Bitcoin Core Update](/config.scripts/bitcoin.update.sh)
+#### v0.19.0.1
+* If you have downloaded this repo run::  
+   `$ ./config.scripts/bitcoin.update.sh`
+* To download and run with a single line:  
+`$ wget https://raw.githubusercontent.com/openoms/raspiblitz-extras/master/config.scripts/bitcoin.update.sh && bash bitcoin.update.sh`
+* Not compatible with LND under v0.8.1, update LND first with the script above.
