@@ -1,4 +1,4 @@
-# RaspiBlitz Extras
+# RaspiBlitz #reckless update
 
 ## Test the functions coming to the next release
 
@@ -13,6 +13,20 @@ cd
 ```
 ----
 
+### [LND Update](/config.scripts/lnd.update.sh)
+
+* Find the latest update scripts here:  
+https://github.com/openoms/lightning-node-management/tree/master/lnd.updates
+
+
+### [Bitcoin Core Update](/config.scripts/bitcoin.update.sh)
+#### v0.19.0.1
+* If you have downloaded this repo run::  
+   `$ ./config.scripts/bitcoin.update.sh`
+* To download and run with a single line:  
+`$ wget https://raw.githubusercontent.com/openoms/raspiblitz-extras/master/config.scripts/bitcoin.update.sh && bash bitcoin.update.sh`
+* Not compatible with LND under v0.8.1, update LND first with the script above.
+
 ### [lndmanage](https://github.com/bitromortac/lndmanage)
 
 * Use the `SERVICE` menu to install / uninstall.
@@ -21,7 +35,7 @@ cd
     `manage` to activate.
     
 
-### BTCPay Server v1.0.3.144
+### BTCPay Server v1.0.3.156
 https://github.com/rootzoll/raspiblitz/issues/214
 
 * Use the `SERVICE` menu to install / uninstall.
@@ -34,17 +48,17 @@ https://github.com/openoms/bitcoin-tutorials/blob/master/BTCPayServer/README.md
 https://github.com/rootzoll/raspiblitz/issues/760
 * Use the `SERVICE` menu to install / uninstall.
 
-### RTL update to v0.6.0
+### RTL update to v0.6.5
 
 ***might need to update NodeJS first if not using a freshSD*** 
-* to uninstall old NOdeJS:
+* to uninstall old NodeJS:
 ```
 sudo rm -rf /usr/bin/node
 sudo rm -rf /usr/bin/npm
 sudo rm -rf /usr/bin/npx
 ```
 
-* Use the `SERVICE` menu to uninstall the old version (if used) and install the updated version.
+* Use the `SERVICE` menu to uninstall the old version of RTL (if used) and install the updated version.
 * Open in the browser to connect:  
 `http://RASPIBLITZ_IP:3000`
 
@@ -94,43 +108,11 @@ Run `$ loop monitor` to monitor progress.
 
 ---
 
-WIP - help with testing is much appreciated.  
+## Will not be included in the release:
 
-* login to your RaspiBlitz with the user `admin`:  
-    `ssh admin@RASPIBLITZ_IP`
-
-## Download the extra scripts
-
-* Run these in the RaspiBlitz terminal to (re)download the scripts from this repo: 
-
-    ```bash
-    cd
-    rm -rf raspiblitz-extras/
-    git clone https://github.com/openoms/raspiblitz-extras.git
-    cd raspiblitz-extras/
-    sudo chmod -R +x *
-    cp -rf * /home/admin/
-    cd
-    ```
-*  install / reinstall the updated services.
----
 ### [Install the Fan-Shim software](/config.scripts/blitz.fanshim.sh)
 * Install:  
-`$ ./config.scripts/blitz.fanshim.sh`
+`$ wget https://raw.githubusercontent.com/openoms/raspiblitz-extras/master/config.scripts/blitz.fanshim.sh && bash blitz.fanshim.sh`
 
 * It is set to automatically stop under 55 and start above 70 degrees.  
 More info here: https://learn.pimoroni.com/tutorial/sandyj/getting-started-with-fan-shim
-
-### [LND Update](/config.scripts/lnd.update.sh)
-
-* Find the latest update scripts here:  
-https://github.com/openoms/lightning-node-management/tree/master/lnd.updates
-
-
-### [Bitcoin Core Update](/config.scripts/bitcoin.update.sh)
-#### v0.19.0.1
-* If you have downloaded this repo run::  
-   `$ ./config.scripts/bitcoin.update.sh`
-* To download and run with a single line:  
-`$ wget https://raw.githubusercontent.com/openoms/raspiblitz-extras/master/config.scripts/bitcoin.update.sh && bash bitcoin.update.sh`
-* Not compatible with LND under v0.8.1, update LND first with the script above.
