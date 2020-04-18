@@ -7,7 +7,10 @@ Will need to sync the latest scripts from the v1.5 branch: https://github.com/ro
 With the following commands:
 ```
 cd /home/admin/raspiblitz
+# set rootzoll's repo (default)
 git remote set-url origin https://github.com/rootzoll/raspiblitz.git
+# update
+git pull
 /home/admin/XXsyncScripts.sh v1.5 -clean
 cd
 ```
